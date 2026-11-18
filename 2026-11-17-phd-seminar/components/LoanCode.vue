@@ -4,8 +4,8 @@
 //   v2:      the whole method after the cleanup
 //   v2body, v1body: the method bodies with the line numbers of the whole methods, which
 //            share their signature
-//   test, property: the property is the generated jqwik test in the notation of the thesis
-//            (Listing lst:pricing-property). The generated supplier bounds amount at 60
+//   test, property: the property is the generalized jqwik test in the notation of the
+//            thesis (Listing lst:pricing-property). Teralizer's supplier bounds amount at 60
 //            and filters on the path condition. The recorded condition reads p > 0.8, and
 //            the slide writes >= as the code does. Its parameters are i, d and a for income,
 //            debt and amount, so that the assertion fits on one line, and comments give

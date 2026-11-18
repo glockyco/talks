@@ -9,16 +9,17 @@ import { computed } from 'vue'
 //           which samples and runs it
 // (thesis, Chapter 7: Teralizer "changes the consumer of symbolic analysis results from a
 // constraint solver to a property-based test runner").
-//   directions: the top route, from `step` 1 the three reasons of the Background slide, and the two
-//               directions of thesis Section 4.7 (`step` 2 and 3)
+//   directions: the top route, from `step` 1 the three reasons of the Background slide,
+//               and the two directions of thesis Section 4.7 (`step` 2 and 3)
 //   summary:    both routes, and from `step` 1 what limits each stage
 // The analysis follows all paths for the top route and the one path of a test for the
 // bottom route, which the box says at the height of each route.
 // A limitation is a chip on the edge of the box it comes from: on the top edge for the top
 // route, on the bottom edge for the bottom route. Both stages share one geometry, so that
 // the summary is the picture of the transition with the second route filled in.
-// The code is from LoanCode (v1 line 7, v2 line 3, the developer test). The results are
-// the verdict lane of Best-Effort Classification and the sampled inputs of Test Generalization, which are illustrative.
+// The code is from LoanCode (v1 line 7, v2 line 3, the developer test). The results stand
+// for the verdict lane of Best-Effort Classification and for sampled inputs like those of
+// Test Generalization, fewer of them to fit the box. They are illustrative.
 const props = defineProps<{ stage: 'directions' | 'summary', step: number }>()
 
 const W = 1792

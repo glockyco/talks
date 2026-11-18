@@ -2,19 +2,20 @@
 import '@fontsource-variable/inter'
 import '@fontsource-variable/jetbrains-mono'
 import { useSlideContext } from '@slidev/client'
+import { talk } from '../talk'
 
 // The deck's frame: the section bar and the footer bar of the earlier AAU-style decks, with
 // the title and the slide's message left-aligned between them and both logos beside the
-// title. The fonts are bundled, so the slides look the same on every machine. `title`, `message` and `messageAt` come from the frontmatter.
-// `sources` adds one line of citations above the footer bar.
+// title. The fonts are bundled, so the slides look the same on every machine. `title`,
+// `section`, `message` and `messageAt` come from the frontmatter, the parts of the section
+// bar and the footer from talk.ts. `sources` adds one line of citations above the footer bar.
 const { $frontmatter, $page, $clicks } = useSlideContext()
-const sections = ['Introduction', 'Background', 'PASDA', 'Teralizer', 'Conclusion']
 </script>
 
 <template>
   <div class="slidev-layout frame bars">
     <nav>
-      <span v-for="s in sections" :key="s" :class="{ on: s === $frontmatter.section }">{{ s }}</span>
+      <span v-for="s in talk.sections" :key="s" :class="{ on: s === $frontmatter.section }">{{ s }}</span>
     </nav>
     <header>
       <div>
@@ -29,8 +30,8 @@ const sections = ['Introduction', 'Background', 'PASDA', 'Teralizer', 'Conclusio
     <main :class="{ cited: $frontmatter.sources }"><slot /></main>
     <p v-if="$frontmatter.sources" class="sources">{{ $frontmatter.sources }}</p>
     <footer>
-      <span>2026-11-17, SCCH PhD Seminar</span>
-      <span>Johann Glock: Formal Guarantees Meet Practical Constraints</span>
+      <span>{{ talk.day }}, {{ talk.event }}</span>
+      <span>{{ talk.speaker }}: {{ talk.titleLines.join(' ') }}</span>
       <span>{{ $page }}</span>
     </footer>
   </div>

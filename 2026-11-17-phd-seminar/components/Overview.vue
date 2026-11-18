@@ -17,7 +17,7 @@ const state = (part: number) => ({ dim: props.active !== 0 && props.active !== p
 
 <template>
   <div class="over">
-    <div class="ask">How can symbolic analysis support regression detection<br>without a complete proof?</div>
+    <Question />
     <div class="parts">
       <div class="card part" :class="state(1)">
         <PartHead :no="1" name="PASDA" keyword="Semantic Differencing" />
@@ -63,7 +63,6 @@ const state = (part: number) => ({ dim: props.active !== 0 && props.active !== p
 
 <style scoped>
 .over { width: 100%; display: flex; flex-direction: column; gap: 28px; }
-.ask { padding: 34px 40px 38px; border-radius: 16px; background: var(--aau-dark); color: #fff; font-size: var(--fs-lead); line-height: 1.35; font-weight: 700; text-align: center; }
 .parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .part { display: flex; flex-direction: column; gap: 20px; padding-top: 26px; padding-bottom: 28px; }
 .part.dim { opacity: 0.35; }

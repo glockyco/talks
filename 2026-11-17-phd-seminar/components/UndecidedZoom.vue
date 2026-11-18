@@ -1,36 +1,25 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { PAIRS as TOTAL, results } from '../data/pasda'
 
 // What PASDA reports for the 141 ARDiff benchmark pairs at one timeout: its proofs, the
 // pairs it cannot prove by best-effort verdict and correctness, and the proofs of the
-// other three tools. From Tables 4.5 to 4.7 of the thesis
-// (tab:program-level-classifications-1 to -3). "No verdict" counts UNKNOWN plus
-// depth-limit, timeout and error results.
-const props = withDefaults(defineProps<{ timeout?: 10 | 30 | 90 | 300 | 900 | 3600 }>(), { timeout: 3600 })
+// other three tools (data/pasda.ts). "No verdict" counts UNKNOWN plus depth-limit, timeout
+// and error results.
+const props = withDefaults(defineProps<{ timeout?: keyof typeof results }>(), { timeout: 3600 })
 
-const TOTAL = 141
-// Per timeout: pairs proven by PASDA, PRV, ARDiff and DSE, then PASDA's MAYBE_EQ correct
-// and wrong, and its MAYBE_NEQ correct and wrong.
-const table: Record<number, number[]> = {
-  10: [86, 82, 78, 51, 28, 10, 4, 2],
-  30: [91, 87, 83, 51, 28, 9, 4, 2],
-  90: [95, 89, 83, 51, 23, 8, 5, 3],
-  300: [99, 93, 84, 51, 19, 7, 5, 4],
-  900: [102, 93, 85, 51, 20, 7, 5, 1],
-  3600: [104, 95, 86, 51, 19, 8, 4, 1],
-}
-const row = computed(() => table[props.timeout])
-const proven = computed(() => row.value[0])
+const r = computed(() => results[props.timeout])
+const proven = computed(() => r.value.proven.PASDA)
 const open = computed(() => TOTAL - proven.value)
-const others = computed(() => ['PRV', 'ARDiff', 'DSE'].map((tool, i) => ({ tool, proven: row.value[i + 1] })))
+const others = computed(() => (['PRV', 'ARDiff', 'DSE'] as const).map(tool => ({ tool, proven: r.value.proven[tool] })))
 const parts = computed(() => {
-  const [, , , , meq, meqWrong, mneq, mneqWrong] = row.value
+  const { maybeEq, maybeNeq } = r.value
   return [
-    { n: meq, cls: 'meq' },
-    { n: meqWrong, cls: 'meq wrong' },
-    { n: mneq, cls: 'mneq' },
-    { n: mneqWrong, cls: 'mneq wrong' },
-    { n: open.value - meq - meqWrong - mneq - mneqWrong, cls: 'none' },
+    { n: maybeEq.correct, cls: 'meq' },
+    { n: maybeEq.wrong, cls: 'meq wrong' },
+    { n: maybeNeq.correct, cls: 'mneq' },
+    { n: maybeNeq.wrong, cls: 'mneq wrong' },
+    { n: open.value - maybeEq.correct - maybeEq.wrong - maybeNeq.correct - maybeNeq.wrong, cls: 'none' },
   ]
 })
 const pct = (n: number, of: number) => `${(100 * n) / of}%`

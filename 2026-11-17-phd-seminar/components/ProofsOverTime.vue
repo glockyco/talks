@@ -1,19 +1,20 @@
 <script setup lang="ts">
+import { PAIRS as TOTAL, maybeCount, results } from '../data/pasda'
+
 // Pairs of the ARDiff benchmark (141) that each tool proves at the six timeouts, and the
-// pairs for which PASDA adds a best-effort verdict. From Tables 4.5 and 4.7 of the thesis
-// (tab:program-level-classifications-1 and -3).
+// pairs for which PASDA adds a best-effort verdict (data/pasda.ts).
 const props = withDefaults(defineProps<{ width?: number }>(), { width: 1100 })
 
-const TOTAL = 141
-const timeouts = ['10 s', '30 s', '90 s', '300 s', '900 s', '1 h']
+const rows = Object.values(results)
+const timeouts = rows.map(r => r.label)
 const proven = {
-  PASDA: [86, 91, 95, 99, 102, 104],
-  PRV: [82, 87, 89, 93, 93, 95],
-  ARDiff: [78, 83, 83, 84, 85, 86],
-  DSE: [51, 51, 51, 51, 51, 51],
+  PASDA: rows.map(r => r.proven.PASDA),
+  PRV: rows.map(r => r.proven.PRV),
+  ARDiff: rows.map(r => r.proven.ARDiff),
+  DSE: rows.map(r => r.proven.DSE),
 }
 // MAYBE_EQ plus MAYBE_NEQ of PASDA per timeout.
-const maybe = [44, 43, 39, 35, 33, 32]
+const maybe = rows.map(maybeCount)
 
 const LEFT = 84
 const RIGHT = 220

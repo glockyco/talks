@@ -352,13 +352,12 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024. Teralizer: Glock, Bauer and Pi
 <!-- The research question of the overview above the picture of Limitations of PASDA with both routes. The click adds what limits each stage. 23 of 37: tab:program-level-classifications-3 (1 h timeout). 3.9 points: sec:teralizer-rq1 (EqBench, 1.2 to 3.9). -->
 
 <div class="summary">
-  <div class="ask">How can symbolic analysis support regression detection without a complete proof?</div>
+  <Question compact />
   <Routes stage="summary" :step="$clicks" />
 </div>
 
 <style>
 .summary { width: 100%; display: flex; flex-direction: column; gap: 40px; align-items: stretch; }
-.summary .ask { padding: 22px 32px 24px; border-radius: 16px; background: var(--aau-dark); color: #fff; font-size: var(--fs-body); line-height: 1.3; font-weight: 700; text-align: center; }
 </style>
 
 ---
@@ -432,9 +431,9 @@ sources: "Symbolic execution: King 1976. Symbolic PathFinder: Păsăreanu et al.
   </div>
   <div class="card">
     <div class="card-head">Each return ends a path</div>
-    <div class="row"><i class="full" /><code class="in">p >= 0.8</code><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg><code class="out">min(amount, 50)</code></div>
-    <div class="row"><i class="partial" /><code class="in">0.5 &lt;= p &lt; 0.8</code><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg><code class="out">min(amount, 5)</code></div>
-    <div class="row"><i class="reject" /><code class="in">p &lt; 0.5</code><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg><code class="out">0</code></div>
+    <div class="row"><i class="full" /><code class="in">p >= 0.8</code><Arrow /><code class="out">min(amount, 50)</code></div>
+    <div class="row"><i class="partial" /><code class="in">0.5 &lt;= p &lt; 0.8</code><Arrow /><code class="out">min(amount, 5)</code></div>
+    <div class="row"><i class="reject" /><code class="in">p &lt; 0.5</code><Arrow /><code class="out">0</code></div>
     <div class="key"><span class="swatch in" /> path condition &nbsp; <span class="swatch out" /> symbolic output</div>
   </div>
 </div>
@@ -448,7 +447,6 @@ sources: "Symbolic execution: King 1976. Symbolic PathFinder: Păsăreanu et al.
 .symb .row i.full { background: var(--branch-full); }
 .symb .row i.partial { background: var(--branch-partial); }
 .symb .row i.reject { background: var(--branch-reject); }
-.symb .row svg path { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .symb .key { margin-top: 14px; }
 </style>
 
@@ -516,7 +514,7 @@ message: Each partition gets its verdict from three questions to the solver.
 sources: "PASDA: Glock, Pichler and Pinzger 2024."
 ---
 
-<!-- Backup: how PASDA classifies, in words, shown only if someone asks. The rows summarize tab:partition-reachability and tab:partition-output-classification of the thesis and the rule of sec:pasda-classification that combines them. The next slide shows the rule for the outputs as a matrix of the two queries. The method's verdict is the aggregation of sec:pasda-program-classification. The three questions are the PC-Query, the NEQ-Query and the EQ-Query, named as the lanes of the Best-Effort Classification slide. -->
+<!-- Backup: how PASDA classifies, in words, shown only if someone asks. The rows summarize tab:partition-reachability and tab:partition-output-classification of the thesis and the rule of sec:pasda-classification that combines them. Two Queries on the Outputs shows the rule for the outputs as a matrix of the two queries. The method's verdict is the aggregation of sec:pasda-program-classification. The three questions are the PC-Query, the NEQ-Query and the EQ-Query. Two of them are the lanes "path reachable?" and "outputs differ?" on Best-Effort Classification. -->
 
 <div class="rules">
   <div class="card">
@@ -801,9 +799,9 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 <div class="loss">
   <div class="group-head">Teralizer's analysis of the test</div>
   <div class="group-head two">The symbolic analysis, as for PASDA</div>
-  <div class="card"><span class="part">assertions to generalize</span><div class="stat"><div class="big">32.9% <span>of the tests</span></div><div class="track"><i style="width: 32.9%" /></div><div class="lack">no assertion found<small>often one in a helper method</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>follow calls into helpers</div></div></div>
-  <div class="card"><span class="part in">inputs to sample</span><div class="stat"><div class="big in">36.5% <span>of the assertions</span></div><div class="track"><i class="in" style="width: 36.5%" /></div><div class="lack">no input that can be sampled<small>objects, collections, arrays</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>generators of valid objects</div></div></div>
-  <div class="card"><span class="part out">outputs to assert</span><div class="stat"><div class="big out">31.8% <span>of the assertions</span></div><div class="track"><i class="out" style="width: 31.8%" /></div><div class="lack">no output that can be asserted<small>void, List, Object</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>side effects as outputs</div></div></div>
+  <div class="card"><span class="part">assertions to generalize</span><div class="stat"><div class="big">32.9% <span>of the tests</span></div><div class="track"><i style="width: 32.9%" /></div><div class="lack">no assertion found<small>often one in a helper method</small></div><div class="fwd"><Arrow />follow calls into helpers</div></div></div>
+  <div class="card"><span class="part in">inputs to sample</span><div class="stat"><div class="big in">36.5% <span>of the assertions</span></div><div class="track"><i class="in" style="width: 36.5%" /></div><div class="lack">no input that can be sampled<small>objects, collections, arrays</small></div><div class="fwd"><Arrow />generators of valid objects</div></div></div>
+  <div class="card"><span class="part out">outputs to assert</span><div class="stat"><div class="big out">31.8% <span>of the assertions</span></div><div class="track"><i class="out" style="width: 31.8%" /></div><div class="lack">no output that can be asserted<small>void, List, Object</small></div><div class="fwd"><Arrow />side effects as outputs</div></div></div>
 </div>
 
 <style>
@@ -824,7 +822,6 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 .loss small { display: block; margin-top: 2px; font-size: var(--fs-note); color: var(--muted); }
 .loss .fwd { margin-top: auto; padding-top: 14px; display: flex; align-items: center; gap: 12px; }
 .loss .fwd svg { flex: none; }
-.loss .fwd svg path { fill: none; stroke: var(--muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 </style>
 
 ---
