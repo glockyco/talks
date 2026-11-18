@@ -4,7 +4,7 @@ import { computed } from 'vue'
 // The repayment score p of approvedAmount over the variable risk of the code, with the two
 // thresholds and the three branches they select.
 // risk = (3.0 * debt - income) / 100.0, p = 1 / (1 + Math.exp(risk))
-const props = withDefaults(defineProps<{ width?: number, tests?: boolean }>(), { width: 800, tests: false })
+const props = withDefaults(defineProps<{ width?: number }>(), { width: 800 })
 
 const LEFT = 50
 const TOP = 14
@@ -25,8 +25,6 @@ const bands = [
   { name: 'partial approval', lo: 0.5, hi: 0.8, cls: 'partial' },
   { name: 'rejection', lo: 0, hi: 0.5, cls: 'reject' },
 ]
-// Developer tests (income, debt): (300, 10), (60, 10) and (10, 30).
-const testRisks = [[300, 10], [60, 10], [10, 30]].map(([income, debt]) => (3 * debt - income) / 100)
 </script>
 
 <template>
@@ -43,9 +41,6 @@ const testRisks = [[300, 10], [60, 10], [10, 30]].map(([income, debt]) => (3 * d
     <text :x="LEFT + PW / 2" :y="H - 6" text-anchor="middle" class="var">risk</text>
     <text :x="LEFT + PW - 14" :y="TOP + 30" text-anchor="end" class="var">p</text>
     <polyline :points="curve" class="curve" />
-    <template v-if="props.tests">
-      <circle v-for="r in testRisks" :key="r" :cx="x(r)" :cy="y(p(r))" r="11" class="test" />
-    </template>
   </svg>
 </template>
 
@@ -62,5 +57,4 @@ const testRisks = [[300, 10], [60, 10], [10, 30]].map(([income, debt]) => (3 * d
 .var { font-family: var(--mono); font-size: 24px; fill: var(--ink); }
 .axis { stroke: var(--muted); stroke-width: 2; }
 .curve { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; }
-.test { fill: var(--ink); stroke: #fff; stroke-width: 3; }
 </style>

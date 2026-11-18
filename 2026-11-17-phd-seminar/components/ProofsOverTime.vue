@@ -61,6 +61,6 @@ const band = [...proven.PASDA.map((n, i) => `${x(i)},${y(n)}`),
 .dot { fill: var(--muted); }
 .dot.main { fill: var(--eq); }
 .name { font-size: var(--fs-small); fill: var(--muted); }
-.name.main { font-weight: 700; fill: var(--eq); font-size: var(--fs-small); }
-.name.maybe { font-weight: 700; fill: #8a6a00; font-size: var(--fs-small); }
+.name.main { font-weight: 700; fill: var(--eq); }
+.name.maybe { font-weight: 700; fill: #8a6a00; }
 </style>

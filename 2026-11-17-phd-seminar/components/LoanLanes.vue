@@ -148,7 +148,7 @@ const laneRows = computed<Lane[]>(() => {
     out.push({ label: 'outputs differ?', spans: split('no', 'yes'), hidden: !props.answers })
     out.push({ label: 'path reachable?', spans: [{ lo: 0, hi: 100, text: 'no answer' }], hidden: !props.answers })
   }
-  if (v === 'noproof') out.push({ label: props.laneLabel || 'in practice', spans: split('EQ', 'UNKNOWN'), rest: 'EQ' })
+  if (v === 'noproof') out.push({ label: props.laneLabel!, spans: split('EQ', 'UNKNOWN'), rest: 'EQ' })
   if (v === 'pasda') out.push({ label: 'PASDA', spans: split('EQ', 'MAYBE_NEQ'), rest: 'EQ', own: props.prior, hidden: !props.result })
   return out
 })
@@ -281,7 +281,6 @@ const chipWidth = (t: string) => t === t.toUpperCase() ? 32 + t.length * 17 : 30
 .value { font-family: var(--mono); font-variant-ligatures: none; font-size: 26px; fill: var(--ink); }
 .span { stroke-width: 6; stroke-linecap: round; }
 .span.eq { stroke: var(--eq); }
-.span.neq { stroke: var(--neq); }
 .span.mneq { stroke: var(--maybe-neq); }
 .span.unk { stroke: var(--unknown); }
 .span.plain { stroke: var(--ink); stroke-width: 3; }

@@ -46,7 +46,7 @@ header p.later { visibility: hidden; }
 .logos { display: flex; align-items: center; gap: 28px; }
 main { position: absolute; top: 192px; bottom: 60px; left: 64px; right: 64px; display: flex; align-items: center; }
 main.cited { bottom: 82px; }
-.sources { position: absolute; left: 64px; right: 64px; bottom: 52px; margin: 0; font-size: 20px; line-height: 24px; color: var(--muted); opacity: 1; }
+.sources { position: absolute; left: 64px; right: 64px; bottom: 52px; margin: 0; font-size: 20px; line-height: 24px; color: var(--muted); }
 footer { position: absolute; bottom: 0; left: 0; right: 0; height: 44px; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--aau-dark); font-size: 20px; line-height: 44px; text-align: center; color: #fff; }
 /* Explicit sizes, because the CSS reset ignores the height attribute of images. */
 img.aau { height: 72px; width: 196px; }

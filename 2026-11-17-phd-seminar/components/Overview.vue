@@ -4,16 +4,14 @@
 // audience gets a pause and knows that a new part starts.
 //   active: 0 shows all three parts alike, 1 to 3 marks the part that starts and dims
 //           the other two
-//   texts:  the line under each picture
 // A part's head is the keyword of the talk's title, with the tool's name beside it.
-const props = withDefaults(defineProps<{ active?: number, texts?: string[] }>(), {
-  active: 0,
-  texts: () => [
-    'Use the partial results of an incomplete proof',
-    'Use the analysis to strengthen existing tests',
-    'Summary of the results, and what to improve next',
-  ],
-})
+const props = withDefaults(defineProps<{ active?: number }>(), { active: 0 })
+// The line under each picture.
+const texts = [
+  'Use the partial results of an incomplete proof',
+  'Use the analysis to strengthen existing tests',
+  'Summary of the results, and what to improve next',
+]
 const state = (part: number) => ({ dim: props.active !== 0 && props.active !== part, on: props.active === part })
 </script>
 

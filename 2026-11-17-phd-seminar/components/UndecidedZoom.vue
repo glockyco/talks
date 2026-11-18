@@ -92,8 +92,7 @@ const pct = (n: number, of: number) => `${(100 * n) / of}%`
 .funnel polygon { fill: #f3dc8c; }
 .meq { background: var(--maybe); color: #111; }
 .mneq { background: var(--maybe-neq); color: #fff; }
-.wrong { color: #111; }
-.wrong { background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0 9px, transparent 9px 14px); }
+.wrong { color: #111; background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0 9px, transparent 9px 14px); }
 .none { background: var(--unknown); color: #111; }
 .legend { display: flex; justify-content: flex-end; gap: 32px; margin-top: 16px; font-size: var(--fs-small); color: var(--muted); }
 .legend i { display: inline-block; width: 22px; height: 22px; border-radius: 4px; margin-right: 8px; vertical-align: -4px; }

@@ -6,21 +6,14 @@ import { computed } from 'vue'
 // Teralizer. From Tables tab:pareto-eqbench and tab:pareto-commons of the thesis (the
 // Pareto points) and Section sec:teralizer-rq4 (EvoSuite with 60 s on EqBench, which is
 // not on the frontier).
-//   stairs: for each of the two, the most detection that a runtime budget buys
-//   chains: one line per EvoSuite search budget, from EvoSuite alone through its
-//           generalized configurations
-// Dots and chains take the color of their EvoSuite search budget, so each generalized
+// One line per EvoSuite search budget, from EvoSuite alone through its generalized
+// configurations. Dots and lines take the color of their search budget, so each generalized
 // configuration shows which tests it started from.
-//   gains:  the two comparisons against EvoSuite with 60 s on EqBench, as arrows, with
-//           their numbers unless gainLabels is off
 const props = withDefaults(defineProps<{
   dataset?: 'eqbench' | 'commons'
-  mode?: 'stairs' | 'chains'
   width?: number
   height?: number
-  gains?: boolean
-  gainLabels?: boolean
-}>(), { dataset: 'eqbench', mode: 'stairs', width: 1100, height: 430, gains: false, gainLabels: true })
+}>(), { dataset: 'eqbench', width: 1100, height: 430 })
 
 type Point = { budget: string, det: number, s: number }
 const point = ([budget, det, s]: (string | number)[]): Point => ({ budget: budget as string, det: det as number, s: s as number })
@@ -57,27 +50,10 @@ const cls = (budget: string) => `b${Number.parseInt(budget)}`
 const xEnd = computed(() => props.width - RIGHT)
 const yBase = computed(() => TOP + props.height)
 
-// A staircase: the detection of the best configuration that fits into a runtime.
-function stairs(points: Point[]) {
-  const out = [`${x(points[0].s)},${y(points[0].det)}`]
-  for (let i = 1; i < points.length; i++) {
-    out.push(`${x(points[i].s)},${y(points[i - 1].det)}`, `${x(points[i].s)},${y(points[i].det)}`)
-  }
-  out.push(`${xEnd.value},${y(points[points.length - 1].det)}`)
-  return out
-}
-const area = (points: Point[]) => [`${x(points[0].s)},${yBase.value}`, ...stairs(points), `${xEnd.value},${yBase.value}`].join(' ')
 const chains = computed(() => d.value.alone.map(a => ({
   budget: a.budget,
   points: [a, ...d.value.combined.filter(c => c.budget === a.budget)].map(p => `${x(p.s)},${y(p.det)}`).join(' '),
 })))
-
-// EvoSuite with 60 s, the first generalized configuration with as much detection, and the
-// detection that the generalized configurations reach within its runtime.
-const ref = computed(() => d.value.alone[2])
-const same = computed(() => d.value.combined.find(c => c.det >= ref.value.det)!)
-const within = computed(() => Math.max(...d.value.combined.filter(c => c.s <= ref.value.s).map(c => c.det)))
-const best = computed(() => [...d.value.combined].reverse().find(c => c.s <= ref.value.s && c.det === within.value)!)
 </script>
 
 <template>
@@ -90,42 +66,14 @@ const best = computed(() => [...d.value.combined].reverse().find(c => c.s <= ref
     <text v-for="t in d.xTicks" :key="t" :x="x(t * 3600)" :y="yBase + 34" text-anchor="middle" class="tick">{{ t }} h</text>
     <text :x="(LEFT + xEnd) / 2" :y="H - 6" text-anchor="middle" class="tick">time to create the tests</text>
 
-    <template v-if="mode === 'stairs'">
-      <polygon :points="area(d.combined)" class="area with" />
-      <polygon :points="area(d.alone)" class="area alone" />
-      <polyline :points="stairs(d.combined).join(' ')" class="stair with" />
-      <polyline :points="stairs(d.alone).join(' ')" class="stair alone" />
-      <text :x="xEnd - 8" :y="y(d.combined[d.combined.length - 1].det) - 18" text-anchor="end" class="label with">EvoSuite + Teralizer</text>
-      <text :x="xEnd - 8" :y="y(ref.det) + 36" text-anchor="end" class="label">EvoSuite alone</text>
-    </template>
-    <template v-else>
-      <polyline v-for="c in chains" :key="c.budget" :points="c.points" :class="['chain', cls(c.budget)]" />
-    </template>
-
-    <template v-if="gains">
-      <line :x1="x(ref.s) - 16" :x2="x(same.s) + 14" :y1="y(ref.det)" :y2="y(ref.det)" class="gain" />
-      <path :d="`M${x(same.s) + 26},${y(ref.det) - 10} l-14,10 l14,10`" class="gain head" />
-      <text v-if="gainLabels" :x="x(ref.s) - 24" :y="y(ref.det) + 36" text-anchor="end" class="gaintext">31.9% less time</text>
-      <!-- The detection that the arrow reaches belongs to a configuration with less runtime. -->
-      <line v-if="mode === 'chains'" :x1="x(best.s) + 12" :x2="x(ref.s)" :y1="y(within)" :y2="y(within)" class="level" />
-      <line :x1="x(ref.s)" :x2="x(ref.s)" :y1="y(ref.det) - 16" :y2="y(within) + 8" class="gain" />
-      <path :d="`M${x(ref.s) - 10},${y(within) + 20} l10,-14 l10,14`" class="gain head" />
-      <text v-if="gainLabels" :x="x(ref.s) - 20" :y="(y(ref.det) + y(within)) / 2 + 4" text-anchor="end" class="gaintext">+2.2 points</text>
-    </template>
+    <polyline v-for="c in chains" :key="c.budget" :points="c.points" :class="['chain', cls(c.budget)]" />
 
     <circle v-for="p in d.combined" :key="p.s" :cx="x(p.s)" :cy="y(p.det)" r="9" :class="['dot', cls(p.budget)]" />
     <g v-for="p in d.alone" :key="p.s">
       <circle :cx="x(p.s)" :cy="y(p.det)" r="12" :class="['dot', 'alone', cls(p.budget)]" />
       <!-- Each label avoids the line that leaves its point. -->
-      <template v-if="mode === 'stairs'">
-        <text v-if="p.budget === '1 s'" :x="x(p.s)" :y="y(p.det) + 44" text-anchor="middle" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
-        <text v-else-if="p.budget === '10 s'" :x="x(p.s) - 22" :y="y(p.det) + 9" text-anchor="end" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
-        <text v-else :x="x(p.s) + 22" :y="y(p.det) + 38" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
-      </template>
-      <template v-else>
-        <text v-if="p.budget === '10 s'" :x="x(p.s) - 22" :y="y(p.det) + 9" text-anchor="end" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
-        <text v-else :x="x(p.s) + 8" :y="y(p.det) + 46" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
-      </template>
+      <text v-if="p.budget === '10 s'" :x="x(p.s) - 22" :y="y(p.det) + 9" text-anchor="end" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
+      <text v-else :x="x(p.s) + 8" :y="y(p.det) + 46" :class="['budget', cls(p.budget)]">{{ p.budget }}</text>
     </g>
   </svg>
 </template>
@@ -135,11 +83,6 @@ const best = computed(() => [...d.value.combined].reverse().find(c => c.s <= ref
 .grid { stroke: var(--rule); stroke-width: 1.5; }
 .axis { stroke: var(--muted); stroke-width: 2; }
 .tick { font-size: var(--fs-note); fill: var(--muted); }
-.area.with { fill: #8fa6ad; opacity: 0.32; }
-.area.alone { fill: var(--panel); }
-.stair { fill: none; stroke-width: 4; stroke-linejoin: round; }
-.stair.with { stroke: #4a626b; }
-.stair.alone { stroke: var(--ink); }
 .chain { fill: none; stroke-width: 5; stroke-linejoin: round; }
 .chain.b1 { stroke: var(--budget-1); }
 .chain.b10 { stroke: var(--budget-10); }
@@ -149,14 +92,8 @@ const best = computed(() => [...d.value.combined].reverse().find(c => c.s <= ref
 .dot.b10 { fill: var(--budget-10); }
 .dot.b60 { fill: var(--budget-60); }
 .dot.alone { stroke: var(--ink); stroke-width: 5; }
-.label { font-size: var(--fs-small); font-weight: 700; fill: var(--ink); }
-.label.with { fill: #3a5059; }
 .budget { font-size: var(--fs-note); font-weight: 700; }
 .budget.b1 { fill: #0c7a78; }
 .budget.b10 { fill: var(--budget-10); }
 .budget.b60 { fill: var(--budget-60); }
-.gain { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; fill: none; }
-.gain.head { stroke-linejoin: round; }
-.level { stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 6 7; }
-.gaintext { font-size: var(--fs-note); font-weight: 700; fill: var(--ink); }
 </style>

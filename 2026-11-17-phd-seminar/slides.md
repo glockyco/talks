@@ -40,7 +40,6 @@ message: ""
 ---
 layout: cover
 title: Formal Guarantees Meet Practical Constraints
-author: Johann Glock
 ---
 
 ---
@@ -305,7 +304,7 @@ sources: "Teralizer: Glock, Bauer and Pinzger 2025. Test generalization: Fraser 
   </div>
   <div v-click="2" class="card">
     <div class="card-head">Sampled inputs of this path</div>
-    <LoanLanes view="teralizer" only="full" headless :axis-label="false" summary sample-labels="version" :width="850" :scale="0.9" />
+    <LoanLanes view="teralizer" only="full" headless :axis-label="false" summary :width="850" :scale="0.9" />
   </div>
 </div>
 </div>
@@ -332,8 +331,8 @@ sources: "EvoSuite: Fraser and Arcuri 2011. EqBench: Badihi et al. 2021. Mutatio
 <div class="stack">
 <div class="key plotkey"><span class="bdot b1" />1 s &nbsp; <span class="bdot b10" />10 s &nbsp; <span class="bdot b60" />60 s search budget &nbsp;&nbsp; <span class="bdot ring" />EvoSuite alone &nbsp; <span class="bdot plain" />then generalized with 10, 50 and 200 inputs per test</div>
 <div class="cols">
-  <div class="card"><div class="card-head"><span class="keep">EqBench</span></div><ParetoPlot mode="chains" :width="824" :height="240" /></div>
-  <div class="card"><div class="card-head">Apache Commons</div><ParetoPlot mode="chains" dataset="commons" :width="824" :height="240" /></div>
+  <div class="card"><div class="card-head"><span class="keep">EqBench</span></div><ParetoPlot :width="824" :height="240" /></div>
+  <div class="card"><div class="card-head">Apache Commons</div><ParetoPlot dataset="commons" :width="824" :height="240" /></div>
 </div>
 <div class="facts"><div class="card fact"><div class="card-head">Setup</div>EvoSuite tests with 1&nbsp;s, 10&nbsp;s or 60&nbsp;s per class, generalized by Teralizer.</div><div class="card fact"><div class="card-head">Result</div>EqBench: +1.2 to 3.9 points. Apache Commons: +0.8 to 1.3 points.</div><div class="card fact"><div class="card-head">Limitations</div>Generalized suites take up to 27.5 times as long to run. Developer tests gain 0.05 to 0.07 points.</div></div>
 </div>
@@ -820,7 +819,7 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 <div class="loss">
   <div class="who">Teralizer's analysis of the test</div>
   <div class="who two">The symbolic analysis, as for PASDA</div>
-  <div class="card"><span class="part">assertions to generalize</span><div class="stat"><div class="big">32.9% <span>of the tests</span></div><div class="track"><i class="" style="width: 32.9%" /></div><div class="lack">no assertion found<small>often one in a helper method</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>follow calls into helpers</div></div></div>
+  <div class="card"><span class="part">assertions to generalize</span><div class="stat"><div class="big">32.9% <span>of the tests</span></div><div class="track"><i style="width: 32.9%" /></div><div class="lack">no assertion found<small>often one in a helper method</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>follow calls into helpers</div></div></div>
   <div class="card"><span class="part in">inputs to sample</span><div class="stat"><div class="big in">36.5% <span>of the assertions</span></div><div class="track"><i class="in" style="width: 36.5%" /></div><div class="lack">no input that can be sampled<small>objects, collections, arrays</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>generators of valid objects</div></div></div>
   <div class="card"><span class="part out">outputs to assert</span><div class="stat"><div class="big out">31.8% <span>of the assertions</span></div><div class="track"><i class="out" style="width: 31.8%" /></div><div class="lack">no output that can be asserted<small>void, List, Object</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>side effects as outputs</div></div></div>
 </div>
@@ -829,12 +828,11 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 .loss { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; row-gap: 14px; font-size: var(--fs-small); line-height: 1.3; }
 .loss .who { padding-bottom: 8px; border-bottom: 3px solid var(--muted); font-size: var(--fs-note); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .loss .who.two { grid-column: span 2; }
-.loss .card { display: flex; flex-direction: column; padding: 22px 28px 24px; }
+.loss .card { display: flex; flex-direction: column; }
 .loss .part { align-self: flex-start; display: inline-block; padding: 5px 14px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 2px var(--rule); font-size: 26px; white-space: nowrap; }
 .loss .part.in { background: var(--spec-in); box-shadow: none; }
 .loss .part.out { background: var(--spec-out); box-shadow: none; }
 .loss .stat { display: flex; flex-direction: column; flex: 1; }
-.loss .stat + .stat { margin-top: 18px; padding-top: 18px; border-top: 2px solid var(--rule); }
 .loss .big { margin: 16px 0 8px; font-size: 64px; line-height: 1; font-weight: 700; }
 .loss .big span { font-size: var(--fs-note); font-weight: 400; color: var(--muted); }
 .loss .track { height: 22px; border-radius: 6px; background: var(--rule); overflow: hidden; }

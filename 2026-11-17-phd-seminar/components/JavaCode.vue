@@ -5,8 +5,7 @@ import { computed } from 'vue'
 // of using Markdown code blocks, because slides mark single tokens, color the line numbers
 // of the branches and hold marks back until a click.
 //   marks:  "line:text" entries, the token that a change touches
-//   keys:   line number to a branch color (full, small, reject), shown beside the number
-//   tags:   line number to a short label at the end of the line
+//   keys:   line number to a branch color (full, partial, reject), shown beside the number
 //   numbers: the line numbers to show, for an excerpt
 //   tints:  line number to a background (in, out), for the two specifications of a property
 //   focus:  lines to lift from the panel while the speaker explains them. The other lines
@@ -16,13 +15,12 @@ const props = withDefaults(defineProps<{
   marks?: string[]
   marked?: boolean
   keys?: Record<number, string>
-  tags?: Record<number, string>
   numbers?: number[]
   tints?: Record<number, string>
   focus?: number[]
   // Without line numbers, for a single line inside a panel.
   bare?: boolean
-}>(), { marks: () => [], marked: true, keys: () => ({}), tags: () => ({}), numbers: () => [], tints: () => ({}), focus: () => [], bare: false })
+}>(), { marks: () => [], marked: true, keys: () => ({}), numbers: () => [], tints: () => ({}), focus: () => [], bare: false })
 
 const TOKEN = /(\/\/.*$)|(@\w+)|\b(final|int|double|long|boolean|byte|void|if|else|while|return|static|throws|new)\b|\b(\d+(?:\.\d+)?)\b|\b([A-Za-z_]\w*)(?=\()|\b([A-Z][A-Z_]{2,})\b/g
 const KIND = ['', 'comment', 'anno', 'kw', 'num', 'call', 'const']
@@ -56,7 +54,6 @@ const lines = computed(() => props.code.split('\n').map((text, i) => {
     <div v-for="l in lines" :key="l.n" class="line" :class="[tints[l.n], { focus: focus.includes(l.n) }]">
       <span v-if="!bare" class="no" :class="keys[l.n]">{{ l.n }}</span>
       <span class="text"><template v-for="(p, i) in l.pieces" :key="i"><mark v-if="p.mark" :class="[p.kind, { plain: !marked }]">{{ p.text }}</mark><span v-else :class="p.kind">{{ p.text }}</span></template><template v-if="l.blank">&nbsp;</template></span>
-      <span v-if="tags[l.n]" class="tag">{{ tags[l.n] }}</span>
     </div>
   </div>
 </template>
@@ -73,7 +70,6 @@ const lines = computed(() => props.code.split('\n').map((text, i) => {
 .no.partial { border-right-color: var(--branch-partial); }
 .no.reject { border-right-color: var(--branch-reject); }
 .text { white-space: pre; }
-.tag { margin-left: auto; padding-left: 16px; font-family: var(--sans); font-size: 0.75em; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
 .kw { color: #6b4bb0; }
 .num { color: #b4530f; }
 .call { color: #0b6e8e; }

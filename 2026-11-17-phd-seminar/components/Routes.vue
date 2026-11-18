@@ -19,7 +19,7 @@ import { computed } from 'vue'
 // the summary is the picture of the transition with the second route filled in.
 // The code is from LoanCode (v1 line 7, v2 line 3, the developer test). The results are
 // the verdict lane of Best-Effort Classification and the sampled inputs of Test Generalization, which are illustrative.
-const props = withDefaults(defineProps<{ stage?: 'directions' | 'summary', step?: number }>(), { stage: 'directions', step: 9 })
+const props = defineProps<{ stage: 'directions' | 'summary', step: number }>()
 
 const W = 1792
 const H = 500
