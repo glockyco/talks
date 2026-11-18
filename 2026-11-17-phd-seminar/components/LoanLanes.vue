@@ -4,8 +4,7 @@ import { computed } from 'vue'
 // The input space of approvedAmount: one row per branch of the code, the requested amount
 // to scale along the horizontal axis, and in each cell the amount that the code approves.
 // v1 caps full approvals at 60, v2 at 50. Verdicts and the failing range come from the
-// tool runs on the example (.agent-build/phd-seminar/12-review-answers.md, section 9, in
-// the thesis repository).
+// tool runs on the example of 2026-11-05 on the MacBook, which are not published.
 //   single:    the full approval as one lane, the behavior of v2
 //   path:      v1 alone, with the path that the developer test of the full approval
 //              follows marked and the other paths dimmed
@@ -21,7 +20,7 @@ import { computed } from 'vue'
 //              partition-level tool reports
 // `questions` adds two lanes above the verdicts: what the solver answers to the two
 // questions of equivalence checking. It proves whether the outputs differ and cannot
-// decide whether inputs reach the path (.agent-build/phd-seminar/solver-check).
+// decide whether inputs reach the path (evidence/solver-check).
 const props = withDefaults(defineProps<{
   view?: 'single' | 'path' | 'question' | 'both' | 'pasda' | 'teralizer' | 'program' | 'blank' | 'noproof'
   width?: number

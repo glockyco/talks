@@ -1,0 +1,3 @@
+z3 5.4.1
+password fixed to the real one: (sat, 0.8435897827148438, '')
+password unknown, timeout 300 s: (unknown, 315.7465536594391, 'timeout')

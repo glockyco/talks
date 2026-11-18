@@ -1,0 +1,6 @@
+(set-logic QF_NRA)
+(declare-fun risk () Real)
+(assert (and (>= risk (- 4)) (<= risk 4)))
+(assert (> (/ 1 (+ 1 (exp risk))) 1))
+(check-sat)
+(exit)

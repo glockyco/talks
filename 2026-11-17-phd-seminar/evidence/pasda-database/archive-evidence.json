@@ -1,0 +1,17 @@
+{
+  "record_url": "https://zenodo.org/api/records/10033132",
+  "doi": "10.5281/zenodo.10033132",
+  "archive_url": "https://zenodo.org/api/records/10033132/files/PASDA.zip/content",
+  "archive_size": 5596317634,
+  "archive_md5_from_record": "7f4a1d74a0ac1a2b77f556fa076131d2",
+  "central_directory_member_count": 3162,
+  "json_member_count": 0,
+  "database": {
+    "member": "PASDA/Implementation/analysis/results/results.db",
+    "compressed_size": 5452169945,
+    "uncompressed_size": 28469411840,
+    "local_header_offset": 18747369,
+    "compression_method": 8
+  },
+  "method": "Read ZIP64 end record and central directory through HTTP byte ranges. The database member is downloaded and inflated by acquire_database.py. The complete archive checksum is not verified because the complete archive is not downloaded."
+}

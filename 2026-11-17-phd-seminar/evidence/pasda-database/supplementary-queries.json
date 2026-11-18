@@ -1,0 +1,241 @@
+{
+  "three_examples": {
+    "sql": "SELECT id,iteration_id,partition,result,pc_status,has_uif,has_uif_pc,has_uif_v1,has_uif_v2,neq_status,eq_status,neq_reason_unknown,eq_reason_unknown,neq_result_v1,neq_result_v2,eq_result_v1,eq_result_v2,pc_model FROM partition WHERE id IN (153200,658810,152310)",
+    "result": [
+      {
+        "id": 152310,
+        "iteration_id": 25922,
+        "partition": 2,
+        "result": "EQ",
+        "pc_status": 0,
+        "has_uif": 0,
+        "has_uif_pc": 0,
+        "has_uif_v1": 0,
+        "has_uif_v2": 0,
+        "neq_status": -1,
+        "eq_status": 0,
+        "neq_reason_unknown": null,
+        "eq_reason_unknown": "incomplete",
+        "neq_result_v1": null,
+        "neq_result_v2": null,
+        "eq_result_v1": null,
+        "eq_result_v2": null,
+        "pc_model": null
+      },
+      {
+        "id": 153200,
+        "iteration_id": 26018,
+        "partition": 3,
+        "result": "MAYBE_NEQ",
+        "pc_status": 0,
+        "has_uif": 0,
+        "has_uif_pc": 0,
+        "has_uif_v1": 0,
+        "has_uif_v2": 0,
+        "neq_status": 0,
+        "eq_status": -1,
+        "neq_reason_unknown": "smt tactic failed to show goal to be sat/unsat (incomplete (theory arithmetic))",
+        "eq_reason_unknown": null,
+        "neq_result_v1": null,
+        "neq_result_v2": null,
+        "eq_result_v1": null,
+        "eq_result_v2": null,
+        "pc_model": null
+      },
+      {
+        "id": 658810,
+        "iteration_id": 50908,
+        "partition": 15,
+        "result": "MAYBE_EQ",
+        "pc_status": 1,
+        "has_uif": 1,
+        "has_uif_pc": 1,
+        "has_uif_v1": 1,
+        "has_uif_v2": 1,
+        "neq_status": 0,
+        "eq_status": 1,
+        "neq_reason_unknown": "timeout",
+        "eq_reason_unknown": null,
+        "neq_result_v1": null,
+        "neq_result_v2": null,
+        "eq_result_v1": "33",
+        "eq_result_v2": "33",
+        "pc_model": "(define-fun UF_X_EPS_4 () Real\n  (- 1.0))\n(define-fun UF_IEEE_MANT_1 () Int\n  4)\n(define-fun UF_pi2_lo_2 () Real\n  8855.0)\n(define-fun x_10_SYMREAL () Real\n  2.0)\n(define-fun UF_half_2 () Real\n  3.0)\n(define-fun UF_IEEE_MAX_1 () Int\n  2)\n(define-fun UF__2_pi_hi_2 () Real\n  4.0)\n(define-fun UF_pi2_hi_2 () Real\n  21238.0)\n(define-fun UF_pi2_hi_hi_2 () Real\n  0.0)\n(define-fun UF_pi2_lo_hi_3 () Real\n  2437.0)\n(define-fun UF_IEEE_BIAS_1 () Int\n  (- 3))\n(define-fun UF_pi2_lo2_2 () Real\n  14.0)\n(define-fun UF_sign_11 () Int\n  1)\n(define-fun UF_l_x_4 ((x!0 Real)) Int\n  2)\n(define-fun UF_x3_9 ((x!0 Real) (x!1 Real)) Real\n  7.0)\n(define-fun UF_x_9 ((x!0 Real)\n (x!1 Real)\n (x!2 Real)\n (x!3 Real)\n (x!4 Real)\n (x!5 Real)\n (x!6 Real)\n (x!7 Real)) Real\n  0.0)\n(define-fun UF_x5_9 ((x!0 Real) (x!1 Real)) Real\n  13.0)\n(define-fun UF_x4_9 ((x!0 Real) (x!1 Real) (x!2 Real) (x!3 Real) (x!4 Real)) Real\n  12.0)\n(define-fun UF_md_b_sign_4 ((x!0 Int)) Int\n  11)\n(define-fun UF_sign_9 ((x!0 Int) (x!1 Real)) Int\n  1)\n(define-fun UF_xm_9 ((x!0 Real) (x!1 Real) (x!2 Real)) Real\n  6.0)\n(define-fun UF_x6_9 ((x!0 Real) (x!1 Real) (x!2 Real) (x!3 Real) (x!4 Real)) Real\n  16.0)\n(define-fun UF_a2_9 ((x!0 Real) (x!1 Real)) Real\n  11.0)\n(define-fun UF_sign_7 ((x!0 Int)) Int\n  13)\n(define-fun UF_a1_9 ((x!0 Int)) Real\n  8.0)\n(define-fun UF_xexp_4 ((x!0 Int)) Int\n  1)\n(define-fun UF_l_x1_9 ((x!0 Real)) Int\n  12)\n(define-fun UF_x_7 ((x!0 Int) (x!1 Real)) Real\n  5.0)\n(define-fun UF_x_13 ((x!0 Real) (x!1 Real)) Real\n  0.0)\n(define-fun UF_x_15 ((x!0 Real) (x!1 Real)) Real\n  0.0)"
+      }
+    ]
+  },
+  "all_maybe_eq_summary": {
+    "sql": "SELECT r.benchmark,count(*) AS n,group_concat(DISTINCT p.neq_reason_unknown) AS reasons FROM _run_ r JOIN iteration i ON i.run_id=r.run_id JOIN partition p ON p.iteration_id=i.id WHERE r.tool='PASDA-diff' AND p.result='MAYBE_EQ' GROUP BY r.benchmark",
+    "result": [
+      {
+        "benchmark": "sine/mysin/Eq",
+        "n": 255,
+        "reasons": "timeout,max. memory exceeded"
+      }
+    ]
+  },
+  "selected_runs": {
+    "sql": "SELECT r.benchmark,r.run_timeout,r.run_id,r.run,r.result_iteration,r.result,s.solver_timeout FROM _run_ r JOIN settings s ON s.run_id=r.run_id WHERE r.run_id IN (17472,30384,17432)",
+    "result": [
+      {
+        "benchmark": "Ell/rc/Eq",
+        "run_timeout": 300,
+        "run_id": 17432,
+        "run": 1,
+        "result_iteration": 1,
+        "result": "MAYBE_EQ",
+        "solver_timeout": 45
+      },
+      {
+        "benchmark": "Ell/rf/NEq",
+        "run_timeout": 300,
+        "run_id": 17472,
+        "run": 1,
+        "result_iteration": 1,
+        "result": "NEQ",
+        "solver_timeout": 45
+      },
+      {
+        "benchmark": "sine/mysin/Eq",
+        "run_timeout": 300,
+        "run_id": 30384,
+        "run": 1,
+        "result_iteration": 10,
+        "result": "MAYBE_NEQ",
+        "solver_timeout": 45
+      }
+    ]
+  },
+  "other_tables": {
+    "sql": "SELECT name FROM sqlite_master WHERE type='table' AND (lower(name) LIKE '%path%' OR lower(name) LIKE '%symbol%' OR lower(name) LIKE '%output%' OR lower(name) LIKE '%effect%')",
+    "result": []
+  },
+  "maybe_source_coverage": {
+    "sql": "SELECT pi.partition_id,pi.version,ins.source_file,group_concat(DISTINCT ins.source_line) AS lines FROM partition_instruction pi JOIN instruction ins ON ins.id=pi.instruction_id WHERE pi.partition_id IN (153200,658810,152310) GROUP BY pi.partition_id,pi.version,ins.source_file",
+    "result": [
+      {
+        "partition_id": 152310,
+        "version": 1,
+        "source_file": "demo/benchmarks/Ell/rc/Eq/instrumented/IoldVPASDA1.java",
+        "lines": "24,40,39,42,9,38,33,20,21,10,15,11,19,23,22,26,37,41,36,32,17,18,14,8,16,13,5,31,12,7,6"
+      },
+      {
+        "partition_id": 152310,
+        "version": 2,
+        "source_file": "demo/benchmarks/Ell/rc/Eq/instrumented/InewVPASDA1.java",
+        "lines": "33,22,26,41,24,42,23,19,36,15,38,32,8,31,11,37,9,10,39,16,40,20,17,13,12,14,6,21,7,5,18"
+      },
+      {
+        "partition_id": 153200,
+        "version": 1,
+        "source_file": "demo/benchmarks/Ell/rf/NEq/instrumented/IoldVPASDA1.java",
+        "lines": "45,44,26,39,46,41,30,6,10,32,29,25,43,9,15,40,34,8,42,11,19,35,5,22,12,13,33,23,38,28,14,18,20,24,21,36,37,17,16,7"
+      },
+      {
+        "partition_id": 153200,
+        "version": 2,
+        "source_file": "demo/benchmarks/Ell/rf/NEq/instrumented/InewVPASDA1.java",
+        "lines": "26,14,41,40,24,23,46,43,32,21,37,10,38,22,12,9,39,34,28,33,7,44,42,11,16,25,35,8,45,29,13,17,36,18,20,6,30,15,19,5"
+      },
+      {
+        "partition_id": 658810,
+        "version": 1,
+        "source_file": "demo/benchmarks/sine/mysin/Eq/instrumented/IoldVPASDA10.java",
+        "lines": "71,11,77,67,14,32,47,85,27,72,69,29,51,81,61,93,76,24,68,19,20,6,59,65,18,13,10,66,22,70,45,82,36,99,17,86,62,30,58,92,57,52,91,64,54,28,60,15,9,26,5,50,16,25,90,8,12,55,7,63,56,100,31,23,53,21"
+      },
+      {
+        "partition_id": 658810,
+        "version": 2,
+        "source_file": "demo/benchmarks/sine/mysin/Eq/instrumented/InewVPASDA10.java",
+        "lines": "93,47,63,36,66,77,23,14,67,9,92,68,5,60,64,28,62,91,99,85,71,70,7,69,45,90,52,50,29,65,18,12,76,27,81,57,55,59,82,54,22,72,53,30,58,17,61,21,15,20,16,26,13,10,24,100,11,86,51,31,56,8,32,6,25,19"
+      }
+    ]
+  },
+  "selected_cohort_300": {
+    "sql": "WITH ranked AS (\n SELECT r.*, row_number() OVER (\n PARTITION BY benchmark,run_timeout,depth_limit ORDER BY run_id) AS ordinal\n FROM _run_ r WHERE tool='PASDA-diff'\n), selected AS (SELECT * FROM ranked WHERE ordinal=1),\n data AS (SELECT r.benchmark,r.run_timeout,r.run_id,r.result AS program_result,\n i.iteration,p.* FROM selected r\n JOIN iteration i ON i.run_id=r.run_id AND i.iteration=r.result_iteration\n JOIN partition p ON p.iteration_id=i.id WHERE p.result IS NOT NULL)\nSELECT count(*) AS runs,count(DISTINCT benchmark) AS benchmarks,min(run_id) AS min_run_id,max(run_id) AS max_run_id FROM selected WHERE run_timeout=300",
+    "result": [
+      {
+        "runs": 141,
+        "benchmarks": 141,
+        "min_run_id": 17048,
+        "max_run_id": 33407
+      }
+    ]
+  },
+  "maybe_eq_by_timeout_all_iterations": {
+    "sql": "SELECT r.run_timeout,count(*) AS n,count(DISTINCT r.run_id) AS runs,group_concat(DISTINCT r.benchmark) AS benchmarks FROM _run_ r JOIN iteration i ON i.run_id=r.run_id JOIN partition p ON p.iteration_id=i.id WHERE r.tool='PASDA-diff' AND p.result='MAYBE_EQ' GROUP BY r.run_timeout",
+    "result": [
+      {
+        "run_timeout": 30,
+        "n": 22,
+        "runs": 5,
+        "benchmarks": "sine/mysin/Eq"
+      },
+      {
+        "run_timeout": 90,
+        "n": 66,
+        "runs": 5,
+        "benchmarks": "sine/mysin/Eq"
+      },
+      {
+        "run_timeout": 300,
+        "n": 56,
+        "runs": 5,
+        "benchmarks": "sine/mysin/Eq"
+      },
+      {
+        "run_timeout": 900,
+        "n": 60,
+        "runs": 5,
+        "benchmarks": "sine/mysin/Eq"
+      },
+      {
+        "run_timeout": 3600,
+        "n": 51,
+        "runs": 5,
+        "benchmarks": "sine/mysin/Eq"
+      }
+    ]
+  },
+  "schema_symbolic_fields": {
+    "sql": "SELECT name FROM pragma_table_info('partition') WHERE lower(name) LIKE '%pc%' OR lower(name) LIKE '%result%' OR lower(name) LIKE '%model%'",
+    "result": [
+      {
+        "name": "result"
+      },
+      {
+        "name": "pc_status"
+      },
+      {
+        "name": "pc_model"
+      },
+      {
+        "name": "pc_reason_unknown"
+      },
+      {
+        "name": "pc_statistics"
+      },
+      {
+        "name": "neq_model"
+      },
+      {
+        "name": "neq_result_v1"
+      },
+      {
+        "name": "neq_result_v2"
+      },
+      {
+        "name": "eq_model"
+      },
+      {
+        "name": "eq_result_v1"
+      },
+      {
+        "name": "eq_result_v2"
+      },
+      {
+        "name": "has_uif_pc"
+      }
+    ]
+  }
+}

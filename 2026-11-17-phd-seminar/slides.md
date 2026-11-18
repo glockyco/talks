@@ -23,7 +23,7 @@ section: Before the talk
 message: ""
 ---
 
-<!-- About This Talk: three panels on the speaker and the thesis, and a dark one for what the talk is and which feedback is wanted. Dates: SCCH since September 2026, PhD since 2021 (personal-website src/lib/data/profile.ts). -->
+<!-- About This Talk: three panels on the speaker and the thesis, and a dark one for what the talk is and which feedback is wanted. Dates: SCCH since September 2026, PhD since 2021 (glockyco.com). -->
 
 <div class="about">
   <div class="card"><div class="card-head">Me</div><b>Johann Glock</b>at SCCH since September 2026,<br>AISYS (Software Science)</div>

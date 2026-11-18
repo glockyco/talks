@@ -1,0 +1,7 @@
+(set-logic QF_NRA)
+(declare-fun income () Real)
+(declare-fun debt () Real)
+(assert (and (>= income (- 100)) (<= income 100) (>= debt (- 100)) (<= debt 100)))
+(assert (>= (/ 1 (+ 1 (exp (/ (- (* 3 debt) income) 100)))) 0.8))
+(check-sat)
+(exit)

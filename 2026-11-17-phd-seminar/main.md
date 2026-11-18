@@ -74,7 +74,7 @@ clicks: 2
 sources: "Symbolic analysis: King 1976, Person et al. 2008. Limitations: Cadar and Sen 2013, Baldoni et al. 2018, Matiyasevich 1970."
 ---
 
-<!-- Solver limitations: tried on 2026-11-14 (.agent-build/phd-seminar/solver-check in the thesis repository). Z3 with PASDA's encoding returns unknown at once for each of the three path conditions, cvc5 times out after 30 s, and dReal answers delta-sat. -->
+<!-- Solver limitations: tried on 2026-11-14 (evidence/solver-check). Z3 with PASDA's encoding returns unknown at once for each of the three path conditions, cvc5 times out after 30 s, and dReal answers delta-sat. -->
 
 <div class="limits">
   <div class="card compact analysis">
@@ -353,7 +353,7 @@ section: Backup
 message: ""
 ---
 
-<!-- Backup: the four papers behind the thesis, shown only if someone asks. The images are the first pages of the published PDFs (personal-website static/pdfs), rendered with `pdftoppm -r 150 -singlefile -png` and cropped to the text area with a margin of 24 px, 13 wide to 15 high from the top. The doctoral symposium PDF starts with a cover sheet of the ACM Digital Library, so its image is page 2. -->
+<!-- Backup: the four papers behind the thesis, shown only if someone asks. The images are the first pages of the published PDFs on glockyco.com, rendered with `pdftoppm -r 150 -singlefile -png` and cropped to the text area with a margin of 24 px, 13 wide to 15 high from the top. The doctoral symposium PDF starts with a cover sheet of the ACM Digital Library, so its image is page 2. -->
 
 <div class="papers">
   <figure class="card"><img src="/papers/pasda.png" alt="First page of the PASDA paper"><figcaption><div class="card-head">PASDA</div>Journal of Systems and Software, 2024<br><span class="id">doi:10.1016/<wbr>j.jss.2024.112037</span></figcaption></figure>

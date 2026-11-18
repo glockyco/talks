@@ -49,7 +49,7 @@ section: Backup
 message: To prove that line 5 can be reached, a solver has to find the password.
 ---
 
-<!-- Backup: why "can an input reach this path?" is the hard question, shown only if someone asks. MessageDigest and Arrays are from the Java standard library. Tried on 2026-11-15 with Z3 (.agent-build/phd-seminar/hash-check in the thesis repository): SHA-256 over bit vectors for a password of eight bytes. With the bytes fixed to the password, Z3 answers sat in 0.8 s. With the bytes unknown, it returns unknown (timeout) after 300 s. Loan example: .agent-build/phd-seminar/solver-check (Z3 returns unknown for each path condition, trying all 201 x 201 inputs takes 9 ms). -->
+<!-- Backup: why "can an input reach this path?" is the hard question, shown only if someone asks. MessageDigest and Arrays are from the Java standard library. Tried on 2026-11-15 with Z3 (evidence/hash-check): SHA-256 over bit vectors for a password of eight bytes. With the bytes fixed to the password, Z3 answers sat in 0.8 s. With the bytes unknown, it returns unknown (timeout) after 300 s. Loan example: evidence/solver-check (Z3 returns unknown for each path condition, trying all 201 x 201 inputs takes 9 ms). -->
 
 <div class="cols reach">
 <div class="col">
@@ -79,7 +79,7 @@ message: PASDA combines three existing approaches and adds best-effort verdicts 
 sources: "DSE: Person et al. 2008. ARDiff: Badihi et al. 2020. PRV: Böhme et al. 2013. PASDA: Glock, Pichler and Pinzger 2024."
 ---
 
-<!-- Backup: PASDA's mechanism, shown only if someone asks. The figure is the process overview of the PASDA paper (projects/pasda-paper/process-overview.pdf in the thesis repository), rendered with `pdftoppm -r 300 -singlefile -png`. Combination: sec:pasda-background and sec:pasda-approach. Retrofit: sec:pasda-rq2 (tab:program-level-classifications-3) and sec:reflections-findings. -->
+<!-- Backup: PASDA's mechanism, shown only if someone asks. The figure is the process overview of the PASDA paper (doi:10.1016/j.jss.2024.112037), rendered from its PDF with `pdftoppm -r 300 -singlefile -png`. Combination: sec:pasda-background and sec:pasda-approach. Retrofit: sec:pasda-rq2 (tab:program-level-classifications-3) and sec:reflections-findings. -->
 
 <div class="cols mech">
 <div class="col">
@@ -161,7 +161,7 @@ message: For 61% of the partitions, the two queries get different answers.
 sources: "PASDA: Glock, Pichler and Pinzger 2024."
 ---
 
-<!-- Backup: the output classification of tab:partition-output-classification (Table 2 of the paper) as a matrix of the two queries, shown only if someone asks. The queries: NEQ-Query checks P and o1 != o2, EQ-Query checks P and o1 = o2, each for satisfiability (SatisfiabilityChecker.java in the implementation). Reachability: tab:partition-reachability. Counts: results database of the replication package (doi:10.5281/zenodo.10033132), PASDA at 300 s, first repetition of each pair, all iterations, 4,917 partition records with both results (.agent-build/phd-seminar/pasda-research/report.md in the thesis repository). The answers differ in 3,002 of them. Both UNSAT needs an unsatisfiable path condition, and such paths are skipped. -->
+<!-- Backup: the output classification of tab:partition-output-classification (Table 2 of the paper) as a matrix of the two queries, shown only if someone asks. The queries: NEQ-Query checks P and o1 != o2, EQ-Query checks P and o1 = o2, each for satisfiability (SatisfiabilityChecker.java in the implementation). Reachability: tab:partition-reachability. Counts: results database of the replication package (doi:10.5281/zenodo.10033132), PASDA at 300 s, first repetition of each pair, all iterations, 4,917 partition records with both results (evidence/pasda-database). The answers differ in 3,002 of them. Both UNSAT needs an unsatisfiable path condition, and such paths are skipped. -->
 
 <div class="cols two">
 <div class="col">
@@ -210,7 +210,7 @@ message: Partitions with MAYBE_EQ occur for 1 of the 141 pairs, where the solver
 sources: "PASDA: Glock, Pichler and Pinzger 2024. Benchmark: Badihi et al. 2020."
 ---
 
-<!-- Backup: when a partition gets MAYBE_EQ, shown only if someone asks. From the results database of PASDA's replication package (doi:10.5281/zenodo.10033132), queried on 2026-11-15 (.agent-build/phd-seminar/pasda-research/report.md in the thesis repository): over all repetitions, timeouts and iterations, only sine/mysin/Eq has such partitions (255 records, NEQ-Query UNKNOWN by solver timeout in 243 and by memory limit in 12). The record on the slide is partition 15 of iteration 10 of the first repetition at 300 s (partition.id 658810). The code is lines 55 of oldV.java and 15 and 56 of newV.java in projects/pasda-impl/benchmarks/sine/mysin/Eq. The package does not hold the partition's path condition and symbolic outputs. 0.1%: tab:partition-level-classifications, row 11. -->
+<!-- Backup: when a partition gets MAYBE_EQ, shown only if someone asks. From the results database of PASDA's replication package (doi:10.5281/zenodo.10033132), queried on 2026-11-15 (evidence/pasda-database): over all repetitions, timeouts and iterations, only sine/mysin/Eq has such partitions (255 records, NEQ-Query UNKNOWN by solver timeout in 243 and by memory limit in 12). The record on the slide is partition 15 of iteration 10 of the first repetition at 300 s (partition.id 658810). The code is lines 55 of oldV.java and 15 and 56 of newV.java in benchmarks/sine/mysin/Eq of the PASDA repository. The package does not hold the partition's path condition and symbolic outputs. 0.1%: tab:partition-level-classifications, row 11. -->
 
 <div class="onepart">
   <div class="card">
@@ -356,7 +356,7 @@ message: The generalized test builds simple conditions into its input generator 
 sources: "Teralizer: Glock, Bauer and Pinzger 2025. jqwik: jqwik-team 2022."
 ---
 
-<!-- Backup: how the generated test samples inputs, shown only if someone asks. sec:teralizer-three-variant-design, sec:teralizer-constraint-encoding and sec:teralizer-rq2. The code is the supplier of the example in the notation of lst:improved-supplier: the generated supplier draws income and debt from all integers, bounds amount at 60 and filters on the path condition (.agent-build/phd-seminar/15-frame-and-example.md in the thesis repository). -->
+<!-- Backup: how the generalized test samples inputs, shown only if someone asks. sec:teralizer-three-variant-design, sec:teralizer-constraint-encoding and sec:teralizer-rq2. The code is the supplier of the example in the notation of lst:improved-supplier: Teralizer's supplier draws income and debt from all integers, bounds amount at 60 and filters on the path condition (tool runs of 2026-11-05 on the MacBook, not published). -->
 
 <div class="cols gen">
 <div class="col">
