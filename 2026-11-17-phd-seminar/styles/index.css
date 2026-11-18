@@ -48,7 +48,7 @@ table.io { width: 100%; border-collapse: collapse; font-size: var(--fs-body); fo
 /* Chromium paints cell rules of a row hidden by a build, so hide them explicitly. */
 table.io tr.slidev-vclick-hidden td { border-bottom-color: transparent; }
 table.io th { font-size: var(--fs-small); color: var(--muted); font-weight: 400; text-align: right; padding: 0 0 12px 28px; border-bottom: 2px solid var(--ink); }
-table.io th:nth-child(2) { text-align: left; padding-left: 0; }
+table.io th:nth-child(2) { text-align: left; }
 table.io td { padding: 10px 0 10px 28px; text-align: right; border-bottom: 1px solid var(--rule); }
 table.io td:first-child { padding-left: 0; width: 44px; text-align: left; }
 table.io td:nth-child(2) { text-align: left; padding-left: 0; }

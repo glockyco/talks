@@ -781,7 +781,7 @@ sources: "Mutation testing: Jia and Harman 2011, Papadakis et al. 2019. Real fau
 layout: bars
 title: Constraint-Aware Input Generation
 section: Backup
-message: The generated test builds simple conditions into its input generator and filters on the rest.
+message: The generalized test builds simple conditions into its input generator and filters on the rest.
 sources: "Teralizer: Glock, Bauer and Pinzger 2025. jqwik: jqwik-team 2022."
 ---
 
