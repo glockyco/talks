@@ -55,7 +55,7 @@ const band = [...proven.PASDA.map((n, i) => `${x(i)},${y(n)}`),
 .grid.top { stroke: var(--muted); stroke-dasharray: 5 6; }
 .tick { font-size: var(--fs-note); fill: var(--muted); }
 .band { fill: var(--maybe); opacity: 0.55; }
-.inband { font-size: var(--fs-small); font-weight: 700; fill: #111; }
+.inband { font-size: var(--fs-small); font-weight: 700; fill: var(--chip-ink); }
 .line { fill: none; stroke: var(--muted); stroke-width: 3; }
 .line.main { stroke: var(--eq); stroke-width: 6; }
 .dot { fill: var(--muted); }

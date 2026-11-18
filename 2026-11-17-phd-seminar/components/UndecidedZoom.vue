@@ -86,14 +86,14 @@ const pct = (n: number, of: number) => `${(100 * n) / of}%`
 .bar.top { border-radius: 8px 8px 0 8px; }
 .bar > div { display: flex; align-items: center; justify-content: center; white-space: nowrap; }
 .proven { background: var(--eq); color: #fff; }
-.open { background: var(--unknown); color: #111; }
+.open { background: var(--unknown); color: var(--chip-ink); }
 .open.focus { background: var(--maybe); }
 .funnel { display: block; width: 100%; height: 60px; }
 .funnel polygon { fill: #f3dc8c; }
-.meq { background: var(--maybe); color: #111; }
+.meq { background: var(--maybe); color: var(--chip-ink); }
 .mneq { background: var(--maybe-neq); color: #fff; }
-.wrong { color: #111; background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0 9px, transparent 9px 14px); }
-.none { background: var(--unknown); color: #111; }
+.wrong { color: var(--chip-ink); background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0 9px, transparent 9px 14px); }
+.none { background: var(--unknown); color: var(--chip-ink); }
 .legend { display: flex; justify-content: flex-end; gap: 32px; margin-top: 16px; font-size: var(--fs-small); color: var(--muted); }
 .legend i { display: inline-block; width: 22px; height: 22px; border-radius: 4px; margin-right: 8px; vertical-align: -4px; }
 </style>

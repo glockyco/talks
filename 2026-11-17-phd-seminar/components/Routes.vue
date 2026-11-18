@@ -163,16 +163,16 @@ const below = [
 .new { fill: var(--aau-dark); }
 .open { fill: none; stroke: var(--aau-dark); stroke-width: 3; stroke-dasharray: 10 8; }
 .card { fill: #fff; stroke: var(--rule); stroke-width: 2; }
-.mark { fill: #fbe3cf; stroke: #e2711d; stroke-width: 2; }
+.mark { fill: var(--change-fill); stroke: var(--change); stroke-width: 2; }
 .step { font-size: var(--fs-small); font-weight: 700; fill: var(--ink); }
 .step.light { fill: #fff; }
 .item { font-size: var(--fs-note); font-weight: 400; fill: var(--ink); }
 .ver { font-size: var(--fs-note); font-weight: 700; fill: var(--muted); }
-.code { font-family: var(--mono); font-variant-ligatures: none; font-size: 22px; fill: var(--ink); white-space: pre; }
-.code .kw { fill: #6b4bb0; }
-.code .num { fill: #b4530f; }
-.code .call { fill: #0b6e8e; }
-.code .anno { fill: #6b4bb0; font-weight: 700; }
+.code { font-family: var(--mono); font-variant-ligatures: none; font-size: var(--fs-label); fill: var(--ink); white-space: pre; }
+.code .kw { fill: var(--code-kw); }
+.code .num { fill: var(--code-num); }
+.code .call { fill: var(--code-call); }
+.code .anno { fill: var(--code-kw); font-weight: 700; }
 .in { fill: var(--spec-in); }
 .out { fill: var(--spec-out); }
 .flow { fill: none; stroke: var(--muted); stroke-width: 4; }
@@ -180,12 +180,12 @@ const below = [
 .tip { fill: var(--muted); }
 .eq { fill: var(--eq); }
 .mneq { fill: var(--maybe-neq); }
-.chiptext { font-size: 22px; font-weight: 700; fill: #fff; }
+.chiptext { font-size: var(--fs-label); font-weight: 700; fill: #fff; }
 .limit { fill: #fff; stroke: var(--ink); stroke-width: 2.5; }
-.limittext { font-size: 22px; fill: var(--ink); }
+.limittext { font-size: var(--fs-label); fill: var(--ink); }
 .span.ink { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
 .span.off { stroke: var(--muted); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 12; }
 .cap { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
 .pass { fill: #fff; stroke: var(--ink); stroke-width: 3; }
-.fail { stroke: #c2410c; stroke-width: 5; stroke-linecap: round; fill: none; }
+.fail { stroke: var(--fail); stroke-width: 5; stroke-linecap: round; fill: none; }
 </style>

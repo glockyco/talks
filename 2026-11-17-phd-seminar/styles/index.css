@@ -1,20 +1,31 @@
-/* One type scale for the whole deck, at the 1920x1080 canvas. */
+/* The deck's variables, at the 1920x1080 canvas. Slides and components take every size and
+   color from here, so that one change reaches all slides. */
 :root {
-  /* Frame colors of the presenter's AAU-style Keynote decks, which this deck keeps. */
+  /* Frame colors of the AAU-style decks, and the panels of the content. */
   --aau-dark: #436f80;
   --aau-light: #539fc6;
-  --ink: #111111;
-  --muted: #5b6770;
-  --rule: #c9d3d8;
+  --ink: #1d2b31;
+  --muted: #5e6b72;
+  --rule: #cfd8dc;
+  --panel: #f3f6f7;
+  /* Dark text on light chips and bars. */
+  --chip-ink: #111111;
 
-  --fs-title: 80px;
+  /* The type scale. */
   --fs-lead: 44px;
-  --fs-body: 36px;
-  --fs-small: 28px;
-  --fs-note: 22px;
+  --fs-body: 32px;
+  --fs-small: 30px;
+  --fs-code: 28px;
+  --fs-note: 26px;
+  /* Code and tables in pictures and in dense backup tables. */
+  --fs-detail: 24px;
+  /* Labels and chips inside pictures. */
+  --fs-label: 22px;
+  /* Small chips, citations, the sources line and the footer. */
+  --fs-tiny: 20px;
 
-  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono: "JetBrainsMono Nerd Font Mono", "JetBrains Mono", Menlo, monospace;
+  --sans: "Inter Variable", "Segoe UI", Arial, sans-serif;
+  --mono: "JetBrains Mono Variable", "JetBrains Mono", Consolas, monospace;
 
   /* One color per verdict, on every slide: proven verdicts dark, best-effort verdicts
      lighter, with yellow for MAYBE_EQ (--maybe) and orange for MAYBE_NEQ. */
@@ -23,12 +34,42 @@
   --maybe: #eab308;
   --maybe-neq: #e2711d;
   --unknown: #cbd5e1;
+  /* Where v2 differs from v1: a light fill with an orange line. */
+  --change: #e2711d;
+  --change-fill: #fbe3cf;
+  /* A test that passes or fails. */
+  --pass: #2f8f5b;
+  --fail: #c2410c;
+  /* One color per branch of the running example, shared by its code, plot and map. */
+  --branch-full: #2f8f95;
+  --branch-partial: #8fbfc4;
+  --branch-reject: #b9c4c9;
+  /* The two specifications that a generalized test takes from symbolic analysis. */
+  --spec-in: #c6def3;
+  --spec-in-line: #7fb0dc;
+  --spec-out: #cde6bf;
+  --spec-out-line: #8fc177;
+  /* One color per EvoSuite search budget on the Teralizer results. */
+  --budget-1: #139c99;
+  --budget-10: #6b4bb0;
+  --budget-60: #b4530f;
+  /* Syntax colors of Java code. */
+  --code-kw: #6b4bb0;
+  --code-num: #b4530f;
+  --code-call: #0b6e8e;
 }
 
-.slidev-layout {
+/* The theme pads its layouts. The deck's layouts place everything themselves. */
+.slidev-layout { padding: 0; }
+
+/* The root of both layouts (layouts/bars.vue and layouts/cover.vue). */
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   font-family: var(--sans);
   color: var(--ink);
-  padding: 0;
 }
 
 code, pre {
@@ -43,101 +84,79 @@ code, pre {
   padding: 0;
   font-size: 1em;
 }
+/* Code tinted as path condition or symbolic output. */
+.slidev-layout code.in { background: var(--spec-in); border-radius: 8px; }
+.slidev-layout code.out { background: var(--spec-out); border-radius: 8px; }
 
-table.io { width: 100%; border-collapse: collapse; font-size: var(--fs-body); font-variant-numeric: tabular-nums; }
-/* Chromium paints cell rules of a row hidden by a build, so hide them explicitly. */
-table.io tr.slidev-vclick-hidden td { border-bottom-color: transparent; }
-table.io th { font-size: var(--fs-small); color: var(--muted); font-weight: 400; text-align: right; padding: 0 0 12px 28px; border-bottom: 2px solid var(--ink); }
-table.io th:nth-child(2) { text-align: left; }
-table.io td { padding: 10px 0 10px 28px; text-align: right; border-bottom: 1px solid var(--rule); }
-table.io td:first-child { padding-left: 0; width: 44px; text-align: left; }
-table.io td:nth-child(2) { text-align: left; padding-left: 0; }
-table.io tr.hit td { font-weight: 700; }
-table.io tr.hit td:last-child { color: #c2410c; }
-.dot { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: #111; vertical-align: -2px; }
-.box { display: inline-block; width: 22px; height: 22px; border: 4px solid #111; vertical-align: -2px; }
-.key { font-size: var(--fs-small); color: var(--muted); }
-.key .dot, .key .box { width: 18px; height: 18px; margin-right: 6px; }
-.key .box { border-width: 3px; }
-
-table.verdicts { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
-table.verdicts td { padding: 16px 0; border-bottom: 1px solid var(--rule); }
-table.verdicts td:last-child { text-align: right; }
-table.verdicts tr.main td { font-weight: 700; }
-.chip { display: inline-block; padding: 4px 16px; border-radius: 6px; font-size: var(--fs-small); font-weight: 700; }
-.chip.unk { background: var(--unknown); color: #111; }
-.chip.meq { background: var(--maybe); color: #111; }
-.chip.mneq { background: var(--maybe-neq); color: #fff; }
-.chip.eq { background: var(--eq); color: #fff; }
-.chip.neq { background: var(--neq); color: #fff; }
-p.why { margin: 0; font-size: var(--fs-small); line-height: 1.4; color: var(--ink); }
-
-/* The frame (layouts/bars.vue): one type scale, the colors of the university's logo, and
-   panels for the content. */
-.frame {
-  --scch: #024654;
-  --ink: #1d2b31;
-  --muted: #5e6b72;
-  --rule: #cfd8dc;
-  --panel: #f3f6f7;
-  --fs-body: 32px;
-  --fs-small: 30px;
-  --fs-note: 26px;
-  --fs-code: 28px;
-  --sans: "Inter Variable", "Segoe UI", Arial, sans-serif;
-  --mono: "JetBrains Mono Variable", "JetBrains Mono", Consolas, monospace;
-  /* One color per branch of the running example, shared by its code, plot and map. */
-  --branch-full: #2f8f95;
-  --branch-partial: #8fbfc4;
-  --branch-reject: #b9c4c9;
-  /* The two specifications that a generalized test takes from symbolic analysis. */
-  --spec-in: #c6def3;
-  --spec-out: #cde6bf;
-  /* One color per EvoSuite search budget on the Teralizer results. */
-  --budget-1: #139c99;
-  --budget-10: #6b4bb0;
-  --budget-60: #b4530f;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  font-family: var(--sans);
-  color: var(--ink);
-}
-.fact { line-height: 1.3; text-wrap: balance; }
-.card p.why { text-wrap: balance; }
+/* Columns and panels. */
 .cols { width: 100%; display: flex; align-items: stretch; justify-content: space-between; gap: 32px; }
 .col { display: flex; flex-direction: column; gap: 24px; justify-content: center; }
 .col.grow { flex: 1; min-width: 0; }
+.stack { width: 100%; display: flex; flex-direction: column; gap: 24px; }
+.setup { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .card { background: var(--panel); border-radius: 16px; padding: 22px 28px 24px; }
+/* A panel with less room above and below, for slides that stack several. */
+.card.compact { padding-top: 18px; padding-bottom: 20px; }
 /* A panel that takes the full height of its column, with its content centered. */
 .card.fill { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .card-head { margin-bottom: 12px; font-size: var(--fs-note); line-height: 1.2; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .card-head:not(:first-child) { margin-top: 22px; }
-/* A citation at the right end of a panel head. */
-.card-head.cited { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; white-space: nowrap; }
-.card-head .cite { font-size: 20px; font-weight: 400; letter-spacing: 0; text-transform: none; white-space: nowrap; }
-.card .key { margin-top: 10px; font-size: var(--fs-note); }
-.card table.verdicts td { padding: 14px 0; }
-.card table.io { font-size: var(--fs-small); }
-.card table.io th { font-size: var(--fs-note); padding-bottom: 8px; border-bottom-width: 1.5px; }
-.card table.io td { padding: 2px 0 2px 28px; font-family: var(--mono); font-size: var(--fs-code); }
-.card table.io td:first-child { padding-left: 0; }
-.card table.io .ok { margin-left: 10px; color: #2f8f5b; font-family: var(--sans); font-weight: 700; }
-.card p.why { margin-top: 22px; }
-.swatch { display: inline-block; width: 26px; height: 22px; border-radius: 4px; margin-right: 8px; vertical-align: -4px; }
-.swatch.in { background: var(--spec-in); box-shadow: inset 0 0 0 2px #7fb0dc; }
-.swatch.out { background: var(--spec-out); box-shadow: inset 0 0 0 2px #8fc177; }
 /* A version, unit or name inside a head, which the head must not set in capitals. */
 .card-head .keep { text-transform: none; }
+/* A citation at the right end of a panel head. */
+.card-head.cited { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; white-space: nowrap; }
+.card-head .cite { font-size: var(--fs-tiny); font-weight: 400; letter-spacing: 0; text-transform: none; white-space: nowrap; }
+/* A head above a group of panels, underlined across them. */
+.group-head { padding-bottom: 8px; border-bottom: 3px solid var(--muted); font-size: var(--fs-note); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .facts { display: flex; gap: 24px; }
-.fact { flex: 1; font-size: var(--fs-small); }
+.fact { flex: 1; font-size: var(--fs-small); line-height: 1.3; text-wrap: balance; }
 .fact .card-head { margin-bottom: 8px; }
-.stack { width: 100%; display: flex; flex-direction: column; gap: 24px; }
+p.why { margin: 22px 0 0; font-size: var(--fs-small); line-height: 1.4; color: var(--ink); text-wrap: balance; }
+
+/* Keys under a picture or a table. */
+.key { font-size: var(--fs-note); color: var(--muted); }
+.card .key { margin-top: 10px; }
+.key.plotkey { margin: 0 0 4px; }
+.dot { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: var(--chip-ink); vertical-align: -2px; }
+.box { display: inline-block; width: 22px; height: 22px; border: 4px solid var(--chip-ink); vertical-align: -2px; }
+.key .dot, .key .box { width: 18px; height: 18px; margin-right: 6px; }
+.key .box { border-width: 3px; }
+.swatch { display: inline-block; width: 26px; height: 22px; border-radius: 4px; margin-right: 8px; vertical-align: -4px; }
+.swatch.in { background: var(--spec-in); box-shadow: inset 0 0 0 2px var(--spec-in-line); }
+.swatch.out { background: var(--spec-out); box-shadow: inset 0 0 0 2px var(--spec-out-line); }
 .bdot { display: inline-block; width: 20px; height: 20px; border-radius: 50%; margin-right: 6px; vertical-align: -2px; }
 .bdot.b1 { background: var(--budget-1); }
 .bdot.b10 { background: var(--budget-10); }
 .bdot.b60 { background: var(--budget-60); }
 .bdot.ring { background: #fff; box-shadow: inset 0 0 0 5px var(--muted), 0 0 0 3px var(--ink); margin: 0 10px 0 4px; }
 .bdot.plain { background: var(--muted); width: 16px; height: 16px; }
-.key.plotkey { margin: 0 0 4px; font-size: var(--fs-note); color: var(--muted); }
+
+/* Verdicts as chips, in the colors of the variables above. */
+.chip { display: inline-block; padding: 4px 16px; border-radius: 6px; font-size: var(--fs-small); font-weight: 700; }
+.chip.small { padding: 2px 12px; font-size: var(--fs-tiny); }
+.chip.medium { padding: 3px 12px; font-size: var(--fs-label); }
+.chip.unk { background: var(--unknown); color: var(--chip-ink); }
+.chip.meq { background: var(--maybe); color: var(--chip-ink); }
+.chip.mneq { background: var(--maybe-neq); color: #fff; }
+.chip.eq { background: var(--eq); color: #fff; }
+.chip.neq { background: var(--neq); color: #fff; }
+
+/* The calls of the developer tests and their results (Regression Detection). */
+table.io { width: 100%; border-collapse: collapse; font-size: var(--fs-small); font-variant-numeric: tabular-nums; }
+table.io th { font-size: var(--fs-note); color: var(--muted); font-weight: 400; text-align: right; padding: 0 0 8px 28px; border-bottom: 1.5px solid var(--ink); }
+table.io th:nth-child(2) { text-align: left; }
+table.io td { padding: 2px 0 2px 28px; text-align: right; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: var(--fs-code); }
+table.io td:first-child { padding-left: 0; width: 44px; text-align: left; }
+table.io td:nth-child(2) { text-align: left; }
+table.io tr.hit td { font-weight: 700; }
+table.io tr.hit td:last-child { color: var(--fail); }
+table.io .ok { margin-left: 10px; color: var(--pass); font-family: var(--sans); font-weight: 700; }
+
+/* The verdicts of the tools for one method (Best-Effort Classification). */
+table.verdicts { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
+table.verdicts td { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+table.verdicts td:last-child { text-align: right; }
+table.verdicts tr.main td { font-weight: 700; }
+
+/* Chromium paints cell rules of a row hidden by a build, so hide them explicitly. */
+tr.slidev-vclick-hidden td { border-bottom-color: transparent; }

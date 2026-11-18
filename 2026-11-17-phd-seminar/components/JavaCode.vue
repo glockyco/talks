@@ -59,7 +59,7 @@ const lines = computed(() => props.code.split('\n').map((text, i) => {
 </template>
 
 <style scoped>
-.java { font-family: var(--mono); font-variant-ligatures: none; font-size: var(--fs-code, 24px); line-height: 1.5; color: var(--ink); }
+.java { font-family: var(--mono); font-variant-ligatures: none; font-size: var(--fs-code); line-height: 1.5; color: var(--ink); }
 .line { display: flex; align-items: baseline; margin: 0 -12px; padding: 0 12px; border-radius: 6px; }
 .line.focus { background: #fff; }
 .lifting .line:not(.focus) { opacity: 0.4; }
@@ -70,12 +70,12 @@ const lines = computed(() => props.code.split('\n').map((text, i) => {
 .no.partial { border-right-color: var(--branch-partial); }
 .no.reject { border-right-color: var(--branch-reject); }
 .text { white-space: pre; }
-.kw { color: #6b4bb0; }
-.num { color: #b4530f; }
-.call { color: #0b6e8e; }
-.anno { color: #6b4bb0; font-weight: 700; }
-.const { color: #b4530f; }
+.kw { color: var(--code-kw); }
+.num { color: var(--code-num); }
+.call { color: var(--code-call); }
+.anno { color: var(--code-kw); font-weight: 700; }
+.const { color: var(--code-num); }
 .comment { color: var(--muted); font-style: italic; }
-mark { background: #fbe3cf; box-shadow: 0 0 0 2px #e2711d; border-radius: 4px; }
+mark { background: var(--change-fill); box-shadow: 0 0 0 2px var(--change); border-radius: 4px; }
 mark.plain { background: none; box-shadow: none; }
 </style>

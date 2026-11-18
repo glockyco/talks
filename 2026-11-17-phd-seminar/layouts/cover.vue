@@ -18,9 +18,9 @@ import { talk } from '../talk'
       <p class="sub"><span v-for="l in talk.subtitleLines" :key="l">{{ l }}<br></span></p>
     </div>
     <div class="people">
-      <div class="who"><div class="label">Speaker</div>{{ talk.speaker }}</div>
-      <div class="who"><div class="label">Supervisors</div><span v-for="s in talk.supervisors" :key="s">{{ s }}<br></span></div>
-      <div class="who"><div class="label">{{ talk.event }}</div>{{ talk.date }}</div>
+      <div class="card who"><div class="label">Speaker</div>{{ talk.speaker }}</div>
+      <div class="card who"><div class="label">Supervisors</div><span v-for="s in talk.supervisors" :key="s">{{ s }}<br></span></div>
+      <div class="card who"><div class="label">{{ talk.event }}</div>{{ talk.date }}</div>
     </div>
   </div>
 </template>
@@ -34,6 +34,6 @@ img.scch { height: 122px; width: 153px; }
 .cover .sub { margin: 40px 0 0; font-size: 52px; line-height: 1.25; color: var(--muted); opacity: 1; }
 .head { position: absolute; top: 250px; left: 64px; right: 64px; }
 .people { position: absolute; left: 64px; right: 64px; bottom: 64px; display: flex; gap: 24px; font-size: var(--fs-body); line-height: 1.3; }
-.who { flex: 1; padding: 22px 28px 24px; border-radius: 16px; background: var(--panel); }
+.who { flex: 1; }
 .label { margin-bottom: 8px; font-size: var(--fs-note); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 </style>

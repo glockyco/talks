@@ -70,9 +70,9 @@ const state = (part: number) => ({ dim: props.active !== 0 && props.active !== p
 .part.on { box-shadow: inset 0 0 0 4px var(--aau-dark); }
 .part p { margin: 0; font-size: var(--fs-small); line-height: 1.3; text-wrap: balance; }
 .part svg { display: block; overflow: visible; }
-.part svg .cap { font-size: 22px; fill: var(--muted); }
-.part svg .cap .x { fill: #c2410c; font-weight: 700; }
-.part svg .in { font-size: 20px; font-weight: 700; fill: #111; text-anchor: middle; }
+.part svg .cap { font-size: var(--fs-label); fill: var(--muted); }
+.part svg .cap .x { fill: var(--fail); font-weight: 700; }
+.part svg .in { font-size: var(--fs-tiny); font-weight: 700; fill: var(--chip-ink); text-anchor: middle; }
 .part svg .in.light { fill: #fff; }
 .part svg .eq { fill: var(--eq); }
 .part svg .neq { fill: var(--neq); }
@@ -84,9 +84,9 @@ const state = (part: number) => ({ dim: props.active !== 0 && props.active !== p
 .part svg .cap-line { stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
 .part svg .test { fill: var(--ink); }
 .part svg .pass { fill: #fff; stroke: var(--ink); stroke-width: 3; }
-.part svg .fail { fill: none; stroke: #c2410c; stroke-width: 5; stroke-linecap: round; }
+.part svg .fail { fill: none; stroke: var(--fail); stroke-width: 5; stroke-linecap: round; }
 .part svg .has { fill: #fff; stroke: var(--ink); stroke-width: 2.5; }
-.part svg .step { font-size: 24px; font-weight: 700; fill: var(--ink); text-anchor: middle; }
+.part svg .step { font-size: var(--fs-detail); font-weight: 700; fill: var(--ink); text-anchor: middle; }
 .part svg .step.light { fill: #fff; }
 .part svg .dark { fill: var(--aau-dark); }
 .part svg .flow { stroke: var(--muted); stroke-width: 4; }

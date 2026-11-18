@@ -16,5 +16,5 @@ defineProps<{ no: number, name: string, keyword?: string }>()
 .head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .name { font-size: 34px; font-weight: 700; line-height: 1.4; white-space: nowrap; }
 .no { margin-right: 18px; color: var(--aau-dark); font-variant-numeric: tabular-nums; }
-.tool { flex: none; padding: 6px 16px; border-radius: 8px; background: var(--aau-dark); color: #fff; font-size: 22px; font-weight: 700; }
+.tool { flex: none; padding: 6px 16px; border-radius: 8px; background: var(--aau-dark); color: #fff; font-size: var(--fs-label); font-weight: 700; }
 </style>

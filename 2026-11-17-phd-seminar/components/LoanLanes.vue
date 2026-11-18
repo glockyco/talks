@@ -258,27 +258,27 @@ const chipWidth = (t: string) => t === t.toUpperCase() ? 32 + t.length * 17 : 30
 .key.partial { fill: var(--branch-partial); }
 .key.reject { fill: var(--branch-reject); }
 .name { font-size: var(--fs-small); font-weight: 700; fill: var(--ink); }
-.cond { font-family: var(--mono); font-variant-ligatures: none; font-size: 24px; fill: var(--muted); }
+.cond { font-family: var(--mono); font-variant-ligatures: none; font-size: var(--fs-detail); fill: var(--muted); }
 .ver { font-size: var(--fs-note); font-weight: 700; fill: var(--muted); }
 .ver.own { fill: var(--ink); }
 /* The lane that the thesis adds. */
 .band { fill: var(--aau-light); opacity: 0.16; }
-.ver .passes { fill: #2f8f5b; }
-.ver .fails { fill: #c2410c; }
+.ver .passes { fill: var(--pass); }
+.ver .fails { fill: var(--fail); }
 .cell { fill: #fff; stroke: var(--rule); stroke-width: 2; }
 .cell.out { fill: var(--spec-out); stroke: #a9cf95; }
-.cell.changed { fill: #fbe3cf; stroke: #e2711d; }
-.cell.out.changed { fill: var(--spec-out); stroke: #e2711d; stroke-width: 4; }
+.cell.changed { fill: var(--change-fill); stroke: var(--change); }
+.cell.out.changed { fill: var(--spec-out); stroke: var(--change); stroke-width: 4; }
 .tint.in { fill: var(--spec-in); }
 .tint.out { fill: var(--spec-out); }
 .tint.unk { fill: var(--unknown); }
 .legend { font-size: var(--fs-note); fill: var(--ink); }
-.cond.strong { font-size: 26px; fill: var(--ink); }
+.cond.strong { font-size: var(--fs-note); fill: var(--ink); }
 .cell.path, .cell.out.path { stroke: var(--ink); stroke-width: 4; }
 .cell.dim { opacity: 0.45; }
 .faint { opacity: 0.45; }
 .cell.open { fill: none; stroke: var(--muted); stroke-dasharray: 8 8; }
-.value { font-family: var(--mono); font-variant-ligatures: none; font-size: 26px; fill: var(--ink); }
+.value { font-family: var(--mono); font-variant-ligatures: none; font-size: var(--fs-note); fill: var(--ink); }
 .span { stroke-width: 6; stroke-linecap: round; }
 .span.eq { stroke: var(--eq); }
 .span.mneq { stroke: var(--maybe-neq); }
@@ -292,13 +292,13 @@ const chipWidth = (t: string) => t === t.toUpperCase() ? 32 + t.length * 17 : 30
 .chip.mneq { fill: var(--maybe-neq); }
 .chip.unk { fill: var(--unknown); }
 .chip.plain { fill: #fff; stroke: var(--ink); stroke-width: 2.5; }
-.chiptext { font-size: 22px; font-weight: 700; fill: #fff; }
-.chiptext.unk, .chiptext.plain { fill: #111; }
-.chiptext.plain { font-weight: 400; font-size: 24px; }
-.chiptext.big { font-size: 30px; }
+.chiptext { font-size: var(--fs-label); font-weight: 700; fill: #fff; }
+.chiptext.unk, .chiptext.plain { fill: var(--chip-ink); }
+.chiptext.plain { font-weight: 400; font-size: var(--fs-detail); }
+.chiptext.big { font-size: var(--fs-small); }
 .veil { fill: var(--panel); opacity: 0.62; }
 .pass { fill: #fff; stroke: var(--ink); stroke-width: 3; }
-.fail { stroke: #c2410c; stroke-width: 5; stroke-linecap: round; fill: none; }
+.fail { stroke: var(--fail); stroke-width: 5; stroke-linecap: round; fill: none; }
 .test { fill: var(--ink); stroke: #fff; stroke-width: 3; }
 .missed { fill: none; stroke: var(--ink); stroke-width: 4; }
 .guide { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 6; }

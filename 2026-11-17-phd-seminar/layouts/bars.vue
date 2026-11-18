@@ -37,7 +37,7 @@ const sections = ['Introduction', 'Background', 'PASDA', 'Teralizer', 'Conclusio
 </template>
 
 <style scoped>
-nav { position: absolute; top: 0; left: 0; right: 0; height: 44px; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--aau-dark); font-size: 22px; line-height: 44px; text-align: center; color: rgba(255, 255, 255, 0.85); }
+nav { position: absolute; top: 0; left: 0; right: 0; height: 44px; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--aau-dark); font-size: var(--fs-label); line-height: 44px; text-align: center; color: rgba(255, 255, 255, 0.85); }
 nav span.on { background: var(--aau-light); color: #fff; font-weight: 700; }
 header { position: absolute; top: 44px; left: 64px; right: 64px; height: 148px; display: flex; align-items: center; justify-content: space-between; }
 h1 { margin: 0; font-size: 58px; line-height: 66px; font-weight: 700; letter-spacing: -1px; }
@@ -46,8 +46,8 @@ header p.later { visibility: hidden; }
 .logos { display: flex; align-items: center; gap: 28px; }
 main { position: absolute; top: 192px; bottom: 60px; left: 64px; right: 64px; display: flex; align-items: center; }
 main.cited { bottom: 82px; }
-.sources { position: absolute; left: 64px; right: 64px; bottom: 52px; margin: 0; font-size: 20px; line-height: 24px; color: var(--muted); }
-footer { position: absolute; bottom: 0; left: 0; right: 0; height: 44px; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--aau-dark); font-size: 20px; line-height: 44px; text-align: center; color: #fff; }
+.sources { position: absolute; left: 64px; right: 64px; bottom: 52px; margin: 0; font-size: var(--fs-tiny); line-height: 24px; color: var(--muted); }
+footer { position: absolute; bottom: 0; left: 0; right: 0; height: 44px; display: grid; grid-template-columns: 1fr 2fr 1fr; background: var(--aau-dark); font-size: var(--fs-tiny); line-height: 44px; text-align: center; color: #fff; }
 /* Explicit sizes, because the CSS reset ignores the height attribute of images. */
 img.aau { height: 72px; width: 196px; }
 img.scch { height: 92px; width: 115px; }

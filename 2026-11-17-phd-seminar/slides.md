@@ -114,32 +114,30 @@ sources: "Symbolic analysis: King 1976, Person et al. 2008. Limitations: Cadar a
 
 <!-- Solver limitations: tried on 2026-11-14 (.agent-build/phd-seminar/solver-check in the thesis repository). Z3 with PASDA's encoding returns unknown at once for each of the three path conditions, cvc5 times out after 30 s, and dReal answers delta-sat. -->
 
-<div class="five">
-  <div class="card analysis">
+<div class="limits">
+  <div class="card compact analysis">
     <div class="card-head">Method summaries of <span class="keep">v1</span> and <span class="keep">v2</span>, from symbolic analysis</div>
     <LoanLanes :view="$clicks === 0 ? 'blank' : 'program'" :verdict="$clicks === 1 ? 'NEQ' : 'UNKNOWN'" :witness="$clicks === 1" :lane-label="['', 'in theory', 'in practice'][$clicks]" :width="1120" :tests="false" summary />
   </div>
   <div class="solver">
-    <div v-click="1" class="card fact"><div class="card-head">In theory</div>A solver compares the summaries of v1 and v2 for all inputs.<div class="key"><span class="chip eq">EQ</span> proven equal &nbsp; <span class="chip neq">NEQ</span> proven different</div></div>
-    <div v-click="2" class="card fact"><div class="card-head">In practice</div>The solver cannot decide whether inputs satisfy the <span class="ringed">path conditions</span>.<div class="verdict"><span class="chip unk">UNKNOWN</span> for v1 against v2 as a whole</div></div>
+    <div v-click="1" class="card compact fact"><div class="card-head">In theory</div>A solver compares the summaries of v1 and v2 for all inputs.<div class="key"><span class="chip medium eq">EQ</span> proven equal &nbsp; <span class="chip medium neq">NEQ</span> proven different</div></div>
+    <div v-click="2" class="card compact fact"><div class="card-head">In practice</div>The solver cannot decide whether inputs satisfy the <span class="ringed">path conditions</span>.<div class="verdict"><span class="chip medium unk">UNKNOWN</span> for v1 against v2 as a whole</div></div>
   </div>
-  <div v-click="2" class="card fact"><div class="card-head">Path explosion</div><JavaCode code="while (debt &gt; 0) debt -= rate;" bare />One path per number of iterations, with no bound on debt.</div>
-  <div v-click="2" class="card fact"><div class="card-head">Unmodeled behavior</div><JavaCode code="score = Math.log10(income);" bare />A native method that<br>the analysis has no model for.</div>
-  <div v-click="2" class="card fact"><div class="card-head">Solver limitations</div><JavaCode code="p = 1 / (1 + Math.exp(risk));" bare />Z3 returns unknown for a condition on p, and cvc5 times out.</div>
+  <div v-click="2" class="card compact fact"><div class="card-head">Path explosion</div><JavaCode code="while (debt &gt; 0) debt -= rate;" bare />One path per number of iterations, with no bound on debt.</div>
+  <div v-click="2" class="card compact fact"><div class="card-head">Unmodeled behavior</div><JavaCode code="score = Math.log10(income);" bare />A native method that<br>the analysis has no model for.</div>
+  <div v-click="2" class="card compact fact"><div class="card-head">Solver limitations</div><JavaCode code="p = 1 / (1 + Math.exp(risk));" bare />Z3 returns unknown for a condition on p, and cvc5 times out.</div>
 </div>
 
 <style>
-.five { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 24px; }
-.five .card { padding-top: 18px; padding-bottom: 20px; }
-.five .analysis { grid-column: span 2; }
-.five .solver { display: flex; flex-direction: column; gap: 20px; }
-.five .solver > .card { flex: none; }
-.five .solver > .card:last-child { flex: 1; }
-.five .verdict { margin-top: 10px; display: flex; align-items: center; gap: 12px; font-size: var(--fs-note); color: var(--muted); }
-.five .ringed { margin-right: -8px; padding: 0 8px; border-radius: 8px; background: var(--spec-in); }
-.five .key { margin-top: 12px; font-size: var(--fs-note); color: var(--muted); }
-.five .chip { font-size: 22px; padding: 3px 12px; }
-.five .java { margin-bottom: 8px; font-size: 26px; line-height: 1.3; }
+.limits { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 24px; }
+.limits .analysis { grid-column: span 2; }
+.limits .solver { display: flex; flex-direction: column; gap: 20px; }
+.limits .solver > .card { flex: none; }
+.limits .solver > .card:last-child { flex: 1; }
+.limits .verdict { margin-top: 10px; display: flex; align-items: center; gap: 12px; font-size: var(--fs-note); color: var(--muted); }
+.limits .ringed { margin-right: -8px; padding: 0 8px; border-radius: 8px; background: var(--spec-in); }
+.limits .key { margin-top: 12px; }
+.limits .java { margin-bottom: 8px; font-size: var(--fs-note); line-height: 1.3; }
 </style>
 
 ---
@@ -164,31 +162,30 @@ clicks: 1
 sources: "PRV: Böhme et al. 2013. ARDiff: Badihi et al. 2020. DSE: Person et al. 2008."
 ---
 
-<div class="seven">
-  <div class="card">
+<div class="levels">
+  <div class="card compact">
     <div class="card-head cited">Program level: one verdict for the method<span class="cite">existing</span></div>
     <LoanLanes view="program" :width="820" :tests="false" lane-label="ARDiff, DSE" undecided />
   </div>
-  <div v-click="1" class="card">
+  <div v-click="1" class="card compact">
     <div class="card-head cited">Partition level: one verdict per path<span class="cite">existing</span></div>
     <LoanLanes view="noproof" :width="820" :tests="false" lane-label="PRV" undecided />
   </div>
-  <div class="card why">
+  <div class="card compact reasons">
     <div class="reason"><span class="chip unk">UNKNOWN</span><span>the solver cannot decide the conditions on <code>p</code></span></div>
   </div>
-  <div v-click="1" class="card why">
+  <div v-click="1" class="card compact reasons">
     <div class="reason"><span class="chip eq">EQ</span><span>same output in v1 and v2, whatever <code>p</code> is</span></div>
     <div class="reason"><span class="chip unk">UNKNOWN</span><span>different outputs, but <code>p >= 0.8</code> is undecided</span></div>
   </div>
 </div>
 
 <style>
-.seven { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; align-items: start; }
-.seven .card { padding-top: 18px; padding-bottom: 20px; }
-.seven .why { display: flex; flex-direction: column; gap: 12px; }
-.seven .reason { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: center; column-gap: 18px; font-size: 26px; line-height: 1.3; }
-.seven .reason .chip { padding: 4px 0; font-size: 22px; text-align: center; }
-.seven .reason code { font-size: 0.92em; }
+.levels { width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; align-items: start; }
+.levels .reasons { display: flex; flex-direction: column; gap: 12px; }
+.levels .reason { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: center; column-gap: 18px; font-size: var(--fs-note); line-height: 1.3; }
+.levels .reason .chip { padding: 4px 0; font-size: var(--fs-label); text-align: center; }
+.levels .reason code { font-size: 0.92em; }
 </style>
 
 ---
@@ -216,15 +213,14 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
       </tbody>
     </table>
     <p v-click="2" class="why">Above 50 the outputs provably differ. The solver cannot decide whether any input reaches that path.</p>
-    <div v-click="2" class="key other"><span class="chip meq">MAYBE_EQ</span> when no path shows a difference<br>but not all paths are proven equal</div>
+    <div v-click="2" class="key other"><span class="chip medium meq">MAYBE_EQ</span> when no path shows a difference<br>but not all paths are proven equal</div>
   </div>
 </div>
 </div>
 
 <style>
-.key.other { margin-top: 18px; padding-top: 18px; border-top: 2px solid var(--rule); color: var(--muted); }
-.key.other .chip { margin-right: 10px; font-size: 22px; padding: 3px 12px; }
-.verdicts tr.slidev-vclick-hidden td { border-bottom-color: transparent; }
+.key.other { margin-top: 18px; padding-top: 18px; border-top: 2px solid var(--rule); }
+.key.other .chip { margin-right: 10px; }
 </style>
 
 ---
@@ -286,23 +282,23 @@ sources: "Teralizer: Glock, Bauer and Pinzger 2025. Test generalization: Fraser 
 
 <div class="cols merged">
 <div class="col grow">
-  <div class="card fill">
+  <div class="card compact fill">
     <div class="card-head">Developer test</div>
     <LoanCode name="test" />
   </div>
-  <div v-click="1" class="card">
+  <div v-click="1" class="card compact">
     <div class="card-head cited">Generalized test<span class="cite">simplified</span></div>
     <LoanCode name="property" />
     <div class="key"><span class="swatch in" /> from the path condition &nbsp; <span class="swatch out" /> from the symbolic output</div>
   </div>
 </div>
 <div class="col">
-  <div class="card">
+  <div class="card compact">
     <div class="card-head cited"><span>The path it follows through <span class="keep">v1</span></span><span class="cite">single-path symbolic analysis</span></div>
     <LoanLanes view="path" :width="850" :scale="0.9" summary axis-label="inline" />
     <div class="rec"><span>recorded without a solver</span><code class="in">p &gt;= 0.8 &amp;&amp; amount &lt;= 60</code><code class="out">amount</code></div>
   </div>
-  <div v-click="2" class="card">
+  <div v-click="2" class="card compact">
     <div class="card-head">Sampled inputs of this path</div>
     <LoanLanes view="teralizer" only="full" headless :axis-label="false" summary :width="850" :scale="0.9" />
   </div>
@@ -311,11 +307,9 @@ sources: "Teralizer: Glock, Bauer and Pinzger 2025. Test generalization: Fraser 
 
 <style>
 .merged { gap: 24px; }
-.merged .card { padding-top: 18px; padding-bottom: 20px; }
 .merged .rec { margin-top: 12px; display: flex; align-items: center; gap: 12px; font-size: var(--fs-note); color: var(--muted); white-space: nowrap; }
-.merged .rec code { padding: 3px 12px; border-radius: 8px; font-size: 22px; color: var(--ink); }
-.merged .rec .in { background: var(--spec-in); margin-left: auto; }
-.merged .rec .out { background: var(--spec-out); }
+.merged .rec code { padding: 3px 12px; font-size: var(--fs-label); color: var(--ink); }
+.merged .rec .in { margin-left: auto; }
 </style>
 
 ---
@@ -357,14 +351,14 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024. Teralizer: Glock, Bauer and Pi
 
 <!-- The research question of the overview above the picture of Limitations of PASDA with both routes. The click adds what limits each stage. 23 of 37: tab:program-level-classifications-3 (1 h timeout). 3.9 points: sec:teralizer-rq1 (EqBench, 1.2 to 3.9). -->
 
-<div class="fifteen">
+<div class="summary">
   <div class="ask">How can symbolic analysis support regression detection without a complete proof?</div>
   <Routes stage="summary" :step="$clicks" />
 </div>
 
 <style>
-.fifteen { width: 100%; display: flex; flex-direction: column; gap: 40px; align-items: stretch; }
-.fifteen .ask { padding: 22px 32px 24px; border-radius: 16px; background: var(--aau-dark); color: #fff; font-size: var(--fs-body); line-height: 1.3; font-weight: 700; text-align: center; }
+.summary { width: 100%; display: flex; flex-direction: column; gap: 40px; align-items: stretch; }
+.summary .ask { padding: 22px 32px 24px; border-radius: 16px; background: var(--aau-dark); color: #fff; font-size: var(--fs-body); line-height: 1.3; font-weight: 700; text-align: center; }
 </style>
 
 ---
@@ -448,10 +442,8 @@ sources: "Symbolic execution: King 1976. Symbolic PathFinder: Păsăreanu et al.
 
 <style>
 .symb .row { margin: 10px 0; display: flex; align-items: center; gap: 12px; }
-.symb .row code { font-size: 26px; white-space: nowrap; }
-.symb .row code.in, .symb .row code.out { padding: 4px 12px; border-radius: 8px; }
-.symb .row .in { background: var(--spec-in); }
-.symb .row .out { background: var(--spec-out); }
+.symb .row code { font-size: var(--fs-note); white-space: nowrap; }
+.symb .row code.in, .symb .row code.out { padding: 4px 12px; }
 .symb .row i { flex: none; width: 8px; height: 36px; border-radius: 4px; }
 .symb .row i.full { background: var(--branch-full); }
 .symb .row i.partial { background: var(--branch-partial); }
@@ -486,7 +478,7 @@ message: To prove that line 5 can be reached, a solver has to find the password.
 </div>
 
 <style>
-.reach .card > code.in { display: inline-block; padding: 4px 12px; border-radius: 8px; background: var(--spec-in); font-size: 26px; }
+.reach .card > code.in { display: inline-block; padding: 4px 12px; font-size: var(--fs-note); }
 </style>
 
 ---
@@ -531,11 +523,11 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
     <div class="card-head">Verdict for a partition</div>
     <table class="by">
       <tbody>
-        <tr><th rowspan="2">proof</th><td><span class="chip eq">EQ</span></td><td>No input of the partition gives different outputs.</td><td class="how">outputs differ? no</td></tr>
-        <tr><td><span class="chip neq">NEQ</span></td><td>An input that reaches the partition gives different outputs.</td><td class="how">outputs differ? yes, or outputs equal? no<br>path reachable? yes</td></tr>
-        <tr class="group"><th rowspan="2">best effort</th><td><span class="chip meq">MAYBE_EQ</span></td><td>An input gives equal outputs, and the solver has no answer on a difference.</td><td class="how">outputs differ? no answer<br>outputs equal? yes</td></tr>
-        <tr><td><span class="chip mneq">MAYBE_NEQ</span></td><td>An input gives different outputs, but through an uninterpreted function or in a partition that may be unreachable.</td><td class="how">outputs differ? yes<br>with an uninterpreted function,<br>or path reachable? no answer</td></tr>
-        <tr class="group"><th>no evidence</th><td><span class="chip unk">UNKNOWN</span></td><td>The solver has no answer on a difference and none on equality.</td><td class="how">outputs differ? no answer<br>outputs equal? no answer</td></tr>
+        <tr><th rowspan="2">proof</th><td><span class="chip small eq">EQ</span></td><td>No input of the partition gives different outputs.</td><td class="how">outputs differ? no</td></tr>
+        <tr><td><span class="chip small neq">NEQ</span></td><td>An input that reaches the partition gives different outputs.</td><td class="how">outputs differ? yes, or outputs equal? no<br>path reachable? yes</td></tr>
+        <tr class="group"><th rowspan="2">best effort</th><td><span class="chip small meq">MAYBE_EQ</span></td><td>An input gives equal outputs, and the solver has no answer on a difference.</td><td class="how">outputs differ? no answer<br>outputs equal? yes</td></tr>
+        <tr><td><span class="chip small mneq">MAYBE_NEQ</span></td><td>An input gives different outputs, but through an uninterpreted function or in a partition that may be unreachable.</td><td class="how">outputs differ? yes<br>with an uninterpreted function,<br>or path reachable? no answer</td></tr>
+        <tr class="group"><th>no evidence</th><td><span class="chip small unk">UNKNOWN</span></td><td>The solver has no answer on a difference and none on equality.</td><td class="how">outputs differ? no answer<br>outputs equal? no answer</td></tr>
       </tbody>
     </table>
     <div class="key">Each question asks the solver for an input of the partition: one that reaches it, one with different outputs, one with equal outputs.</div>
@@ -545,8 +537,8 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
       <div class="card-head">Verdict for the method</div>
       <table class="agg">
         <tbody>
-          <tr><td><span class="chip eq">EQ</span></td><td>all partitions are EQ</td></tr>
-          <tr><td><span class="chip meq">MAYBE_EQ</span></td><td>some are EQ or MAYBE_EQ, none is NEQ or MAYBE_NEQ</td></tr>
+          <tr><td><span class="chip small eq">EQ</span></td><td>all partitions are EQ</td></tr>
+          <tr><td><span class="chip small meq">MAYBE_EQ</span></td><td>some are EQ or MAYBE_EQ, none is NEQ or MAYBE_NEQ</td></tr>
           <tr><td>otherwise</td><td>the first that occurs of NEQ, MAYBE_NEQ, UNKNOWN, DEPTH_LIMITED</td></tr>
         </tbody>
       </table>
@@ -557,16 +549,16 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
 
 <style>
 .rules { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 24px; align-items: start; }
-.rules table { width: 100%; border-collapse: collapse; font-size: 24px; line-height: 1.3; }
+.rules table { width: 100%; border-collapse: collapse; font-size: var(--fs-detail); line-height: 1.3; }
 .rules td, .rules th { padding: 10px 20px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; text-align: left; }
 .rules th { width: 110px; font-size: var(--fs-note); font-weight: 700; color: var(--muted); }
 .rules tr.group td, .rules tr.group th { border-top: 2px solid var(--muted); }
 .rules td:last-child { padding-right: 0; }
-.rules .how { width: 430px; font-size: 22px; color: var(--muted); }
+.rules .how { width: 430px; font-size: var(--fs-label); color: var(--muted); }
 .rules .agg td:first-child { white-space: nowrap; color: var(--muted); }
 .rules tbody tr:last-child td, .rules tbody tr:last-child th { border-bottom: none; }
-.rules .chip { font-size: 20px; padding: 2px 12px; white-space: nowrap; }
-.rules .key { margin-top: 14px; font-size: var(--fs-note); line-height: 1.3; }
+.rules .chip { white-space: nowrap; }
+.rules .key { margin-top: 14px; line-height: 1.3; }
 .rules .side { display: flex; flex-direction: column; gap: 24px; }
 .rules .side > .key { margin-top: 0; padding: 0 28px; }
 </style>
@@ -590,9 +582,9 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
         <tr><th class="axis side">outputs differ? <span>NEQ-Query</span></th><th>yes</th><th>no</th><th>no answer</th></tr>
       </thead>
       <tbody>
-        <tr><th>no</th><td><span class="chip eq">EQ</span><i>1,916</i></td><td class="none">cannot occur<i>0</i></td><td><span class="chip eq">EQ</span><i>350</i></td></tr>
-        <tr><th>yes</th><td><span class="chip neq">NEQ</span><i>54</i><br><span class="chip mneq">MAYBE_NEQ</span><i>1,568</i></td><td><span class="chip neq">NEQ</span><i>686</i></td><td><span class="chip neq">NEQ</span><i>2</i><br><span class="chip mneq">MAYBE_NEQ</span><i>0</i></td></tr>
-        <tr><th>no answer</th><td><span class="chip meq">MAYBE_EQ</span><i>13</i></td><td><span class="chip neq">NEQ</span><i>35</i></td><td><span class="chip unk">UNKNOWN</span><i>293</i></td></tr>
+        <tr><th>no</th><td><span class="chip small eq">EQ</span><i>1,916</i></td><td class="none">cannot occur<i>0</i></td><td><span class="chip small eq">EQ</span><i>350</i></td></tr>
+        <tr><th>yes</th><td><span class="chip small neq">NEQ</span><i>54</i><br><span class="chip small mneq">MAYBE_NEQ</span><i>1,568</i></td><td><span class="chip small neq">NEQ</span><i>686</i></td><td><span class="chip small neq">NEQ</span><i>2</i><br><span class="chip small mneq">MAYBE_NEQ</span><i>0</i></td></tr>
+        <tr><th>no answer</th><td><span class="chip small meq">MAYBE_EQ</span><i>13</i></td><td><span class="chip small neq">NEQ</span><i>35</i></td><td><span class="chip small unk">UNKNOWN</span><i>293</i></td></tr>
       </tbody>
     </table>
     <div class="key">Two verdicts in a cell: MAYBE_NEQ if an uninterpreted function is involved.<br>Numbers: partitions at a timeout of 300&nbsp;s, 4,917 with both answers.</div>
@@ -606,7 +598,7 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
 </div>
 
 <style>
-.two .mx { border-collapse: separate; border-spacing: 8px; font-size: 24px; }
+.two .mx { border-collapse: separate; border-spacing: 8px; font-size: var(--fs-detail); }
 .two .mx th { padding: 4px 10px; font-weight: 400; color: var(--muted); text-align: center; white-space: nowrap; }
 .two .mx tbody th { text-align: right; }
 .two .mx .axis { font-weight: 700; color: var(--ink); }
@@ -616,8 +608,7 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024."
 .two .mx .side span { display: block; margin: 0; }
 .two .mx td.none { background: none; box-shadow: inset 0 0 0 2px var(--rule); color: var(--muted); font-size: var(--fs-note); }
 .two .mx i { margin-left: 10px; font-style: normal; font-size: var(--fs-note); color: var(--muted); font-variant-numeric: tabular-nums; }
-.two .chip { font-size: 20px; padding: 2px 12px; }
-.two .key { margin-top: 12px; font-size: var(--fs-note); line-height: 1.4; }
+.two .key { margin-top: 12px; line-height: 1.4; }
 .two .col:first-child .card { width: min-content; }
 </style>
 
@@ -647,7 +638,7 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024. Benchmark: Badihi et al. 2020.
         <tr><td>PC-Query</td><td>SAT, with UIF: MAYBE_REACHABLE</td></tr>
         <tr><td>NEQ-Query</td><td>UNKNOWN, the solver timed out</td></tr>
         <tr><td>EQ-Query</td><td>SAT, an input with equal outputs</td></tr>
-        <tr><td>verdict</td><td><span class="chip meq">MAYBE_EQ</span></td></tr>
+        <tr><td>verdict</td><td><span class="chip small meq">MAYBE_EQ</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -658,12 +649,11 @@ sources: "PASDA: Glock, Pichler and Pinzger 2024. Benchmark: Badihi et al. 2020.
 <style>
 .onepart { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
 .onepart .ver { margin: 10px 0 4px; font-size: var(--fs-note); font-weight: 700; color: var(--muted); }
-.onepart .key { margin-top: 16px; font-size: var(--fs-note); line-height: 1.3; }
+.onepart .key { margin-top: 16px; line-height: 1.3; }
 .onepart table { width: 100%; border-collapse: collapse; font-size: var(--fs-note); }
 .onepart td { padding: 12px 0; border-bottom: 1px solid var(--rule); }
 .onepart td:first-child { width: 170px; color: var(--muted); white-space: nowrap; }
 .onepart tr:last-child td { border-bottom: none; }
-.onepart .chip { font-size: 20px; padding: 2px 12px; }
 </style>
 
 ---
@@ -684,10 +674,6 @@ sources: "Benchmark and ARDiff: Badihi et al. 2020. DSE: Person et al. 2008. PRV
   <div class="card fact"><div class="card-head"><span class="keep">PRV</span></div>Not available. PASDA's first iteration without best&#8209;effort verdicts stands in for it.</div>
   <div class="card fact"><div class="card-head">Machine and limits</div>MacBook Air M2 with 24&nbsp;GB of memory. The analysis follows a loop for at most 10 iterations.</div>
 </div>
-
-<style>
-.setup { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-</style>
 
 ---
 layout: bars
@@ -732,10 +718,6 @@ sources: "EqBench: Badihi et al. 2021. EvoSuite: Fraser and Arcuri 2011. RepoRea
   <div class="card fact"><div class="card-head">Limits</div>10&nbsp;s of symbolic analysis per assertion, 1,800&nbsp;s per generalized test suite, 1&nbsp;h of mutation testing per suite.</div>
 </div>
 
-<style>
-.setup { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-</style>
-
 ---
 layout: bars
 title: Mutation Testing
@@ -770,8 +752,8 @@ sources: "Mutation testing: Jia and Harman 2011, Papadakis et al. 2019. Real fau
 <style>
 .mut .pair { margin: 4px 0; display: flex; align-items: baseline; gap: 14px; }
 .mut .ver { flex: none; width: 84px; font-size: var(--fs-note); font-weight: 700; color: var(--muted); }
-.mut .out { margin: 10px 0 0; display: flex; align-items: center; gap: 14px; font-size: 24px; }
-.mut .tag { flex: none; width: 170px; padding: 3px 0; border-radius: 6px; font-size: 20px; font-weight: 700; text-align: center; }
+.mut .out { margin: 10px 0 0; display: flex; align-items: center; gap: 14px; font-size: var(--fs-detail); }
+.mut .tag { flex: none; width: 170px; padding: 3px 0; border-radius: 6px; font-size: var(--fs-tiny); font-weight: 700; text-align: center; }
 .mut .tag.hit { background: var(--ink); color: #fff; }
 .mut .tag.miss { background: #fff; box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
 </style>
@@ -802,7 +784,7 @@ sources: "Teralizer: Glock, Bauer and Pinzger 2025. jqwik: jqwik-team 2022."
 </div>
 
 <style>
-.gen .key { margin-top: 14px; font-size: var(--fs-note); line-height: 1.4; }
+.gen .key { margin-top: 14px; line-height: 1.4; }
 </style>
 
 ---
@@ -817,8 +799,8 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 <!-- 32.9% of tests: NoAssertions (24,266 of 73,662). 36.5% and 31.8% of assertions: ParameterType, ReturnType. All in chapters/05-teralizer/tables. -->
 
 <div class="loss">
-  <div class="who">Teralizer's analysis of the test</div>
-  <div class="who two">The symbolic analysis, as for PASDA</div>
+  <div class="group-head">Teralizer's analysis of the test</div>
+  <div class="group-head two">The symbolic analysis, as for PASDA</div>
   <div class="card"><span class="part">assertions to generalize</span><div class="stat"><div class="big">32.9% <span>of the tests</span></div><div class="track"><i style="width: 32.9%" /></div><div class="lack">no assertion found<small>often one in a helper method</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>follow calls into helpers</div></div></div>
   <div class="card"><span class="part in">inputs to sample</span><div class="stat"><div class="big in">36.5% <span>of the assertions</span></div><div class="track"><i class="in" style="width: 36.5%" /></div><div class="lack">no input that can be sampled<small>objects, collections, arrays</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>generators of valid objects</div></div></div>
   <div class="card"><span class="part out">outputs to assert</span><div class="stat"><div class="big out">31.8% <span>of the assertions</span></div><div class="track"><i class="out" style="width: 31.8%" /></div><div class="lack">no output that can be asserted<small>void, List, Object</small></div><div class="fwd"><svg width="44" height="22" viewBox="0 0 44 22"><path d="M2,11 H38 M29,3 L40,11 L29,19" /></svg>side effects as outputs</div></div></div>
@@ -826,10 +808,9 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 
 <style>
 .loss { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; row-gap: 14px; font-size: var(--fs-small); line-height: 1.3; }
-.loss .who { padding-bottom: 8px; border-bottom: 3px solid var(--muted); font-size: var(--fs-note); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.loss .who.two { grid-column: span 2; }
+.loss .two { grid-column: span 2; }
 .loss .card { display: flex; flex-direction: column; }
-.loss .part { align-self: flex-start; display: inline-block; padding: 5px 14px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 2px var(--rule); font-size: 26px; white-space: nowrap; }
+.loss .part { align-self: flex-start; display: inline-block; padding: 5px 14px; border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 2px var(--rule); font-size: var(--fs-note); white-space: nowrap; }
 .loss .part.in { background: var(--spec-in); box-shadow: none; }
 .loss .part.out { background: var(--spec-out); box-shadow: none; }
 .loss .stat { display: flex; flex-direction: column; flex: 1; }
@@ -837,8 +818,8 @@ sources: "Projects: Munaiah et al. 2017 (RepoReapers)."
 .loss .big span { font-size: var(--fs-note); font-weight: 400; color: var(--muted); }
 .loss .track { height: 22px; border-radius: 6px; background: var(--rule); overflow: hidden; }
 .loss .track i { display: block; height: 100%; background: var(--muted); }
-.loss .track i.in { background: #7fb0dc; }
-.loss .track i.out { background: #8fc177; }
+.loss .track i.in { background: var(--spec-in-line); }
+.loss .track i.out { background: var(--spec-out-line); }
 .loss .lack { margin-top: 12px; }
 .loss small { display: block; margin-top: 2px; font-size: var(--fs-note); color: var(--muted); }
 .loss .fwd { margin-top: auto; padding-top: 14px; display: flex; align-items: center; gap: 12px; }
@@ -905,8 +886,8 @@ sources: "Prioritization: Khatibsyarbini et al. 2018. Fault localization: Wong e
 
 <div class="uses">
   <div></div>
-  <div class="who">Input for tools</div>
-  <div class="who">Input for developers</div>
+  <div class="group-head">Input for tools</div>
+  <div class="group-head">Input for developers</div>
   <div class="what">PASDA's verdicts</div>
   <div class="card">
     <div class="use">Run the tests of partitions with NEQ and MAYBE_NEQ first.</div>
@@ -928,7 +909,6 @@ sources: "Prioritization: Khatibsyarbini et al. 2018. Fault localization: Wong e
 
 <style>
 .uses { width: 100%; display: grid; grid-template-columns: 250px minmax(0, 1fr) minmax(0, 1fr); gap: 20px 24px; align-items: stretch; }
-.uses .who { padding-bottom: 8px; border-bottom: 3px solid var(--muted); font-size: var(--fs-note); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .uses .what { align-self: center; font-size: var(--fs-small); font-weight: 700; line-height: 1.3; }
 .uses .card { display: flex; flex-direction: column; justify-content: center; gap: 14px; font-size: var(--fs-small); line-height: 1.3; }
 .uses .use { padding-left: 18px; border-left: 4px solid var(--rule); text-wrap: balance; }

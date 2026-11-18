@@ -54,7 +54,7 @@ const bands = [
 .key.reject { fill: var(--branch-reject); }
 .name { font-size: var(--fs-note); font-weight: 700; fill: var(--ink); }
 .tick { font-size: var(--fs-note); fill: var(--muted); }
-.var { font-family: var(--mono); font-size: 24px; fill: var(--ink); }
+.var { font-family: var(--mono); font-size: var(--fs-detail); fill: var(--ink); }
 .axis { stroke: var(--muted); stroke-width: 2; }
 .curve { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; }
 </style>
